@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成语接龙</title>
+    <script>
+        console.log("%c看什么看(*/ω＼*)", "color: red; font-size: 24px;")
+        function submit() {
+            var anwser = document.getElementById("anwser")
+            var bot = document.getElementById("bot")
+            bot.src = `https://xiaoapi.cn/API/cyjl.php?id=QAQ0428&msg=我接${anwser.value}`
+        }
+    </script>
+    <style> 
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        iframe {
+            width: 100%;
+        }
+        .user {
+            display: flex;
+        }
+        .user input, .user button {
+            height: 50px;
+            flex: 1;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 22px;
+            transition: all .3s;
+            border: 1px solid gray;
+            color: gray;
+        }
+        .user input {
+            outline: none;
+        }
+        .user input::placeholder {
+            text-align: center;
+        }
+        .user input:hover, .user input:focus, .user button:hover, .user button:focus {
+            border: 1px solid #09c9f0;
+            box-shadow: 4px 0px 10px 0px #09c9f0 ;
+        }
+        p {
+            color: gray;
+            text-align: center;
+        }
+        .tips {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://xiaoapi.cn/API/cyjl.php?id=QAQ0428&msg=开始成语接龙" frameborder="1" id="bot"></iframe>
+    <br>
+    <div class="user">
+        <input id="anwser" placeholder="在这里输入你的答案" name="anwser">
+        <button id="submit" onclick="submit()">提交</button>
+    </div>
+    <div class="tips">
+        <p>刷新即可再来一局</p>
+        <p>使用的api: https://xiaoapi.cn/?action=doc&id=6</p>
+    </div>
+</body>
+</html>
