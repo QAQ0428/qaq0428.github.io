@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <title>成语接龙</title>
     <script>
         console.log("%c看什么看(*/ω＼*)", "color: red; font-size: 24px;")
@@ -50,6 +51,9 @@
         .tips {
             margin-top: 30px;
         }
+        .back:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +66,7 @@
     <div class="tips">
         <p>刷新即可再来一局</p>
         <p>使用的api: https://xiaoapi.cn/?action=doc&id=6</p>
+        <p onclick="window.location.href = '../index.html'" class="back">回到首页</p>
     </div>
 </body>
 </html>
