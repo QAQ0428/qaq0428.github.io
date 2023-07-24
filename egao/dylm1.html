@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <title>你喜欢我吗</title>
+    <script>
+        function setText() {
+            if (window.location.href.indexOf('?txt=') != -1) {
+            var arr = decodeURIComponent(window.location.href.split("txt=")[1]).split("`");
+            document.title = arr[0];
+            document.getElementById("title").innerText = arr[0];
+            document.getElementById("y").innerText = arr[1];
+            document.getElementById("front").innerText = arr[2];
+            document.getElementById("back").innerText = arr[1];
+            document.getElementById("y").onclick = () => alert(arr[3]);
+            document.getElementById("n").onclick = () => rotate();alert(arr[3]);
+            }
+        }
+        function rotate() {
+            document.getElementById("n").style.transform = "rotateY(180deg)";
+        }
+        function back() {
+            document.getElementById("n").style.transform = "none";
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #title {
+            text-align: center;
+            font-weight: thin;
+            font-size: 30px;
+        }
+        #y, #n {
+            width: 150px;
+            height: 50px;
+            border: 1px #000 solid;
+            font-size: 18px;
+        }
+        #y {
+            float: left;
+            background-color: rgb(65, 226, 65);
+        }
+        #n {
+            position: relative;
+            transform-style: preserve-3d;
+            float: right;
+            background-color: red;
+            transition: .3s;
+        }
+        #front, #back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            text-align: center;
+            line-height: 50px;
+        }
+        #back {
+            transform: rotateY(-180deg);
+            background-color: rgb(65, 226, 65);
+        }
+    </style>
+</head>
+<body onload="setText()">
+    <div id="title">
+        你喜欢我吗
+    </div>
+    <button id="y" onclick="alert('我也喜欢你(/▽＼)')">是的!</button>
+    <div id="n" onmouseenter="rotate()" onmouseleave="back()" onclick="rotate();alert('我也喜欢你(/▽＼)')">
+        <div id="front">喜欢个锤子</div>
+        <div id="back">是的!</div>
+    </div>
+    <script>setText();</script>
+</body>
+</html>

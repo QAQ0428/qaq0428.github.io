@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你喜欢我吗</title>
+    <script>
+        function setText() {
+            if (window.location.href.indexOf('?txt=') != -1) {
+                var arr = decodeURIComponent(window.location.href.split("?txt=")[1]).split("`");
+                document.title = arr[0];
+                document.getElementById("title").innerText = arr[0];
+                document.getElementById("y").innerText = arr[1];
+                document.getElementById("n").innerText = arr[2];
+                document.getElementById("y").onclick = () => alert(arr[3]);
+            }
+        }
+        function runAway() {
+            var width = document.body.clientWidth;
+            var height = document.body.clientHeight;
+            var btn = document.getElementById("n");
+            btn.style.transform = `translate(${Math.random() * 200}px, ${Math.random() * 200}px)`
+            btn.style.float = "none";
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #title {
+            text-align: center;
+            font-weight: thin;
+            font-size: 30px;
+        }
+
+        #y,
+        #n {
+            width: 150px;
+            height: 50px;
+            border: 1px #000 solid;
+            font-size: 18px;
+        }
+
+        #y {
+            float: left;
+            background-color: rgb(65, 226, 65);
+        }
+
+        #n {
+            float: right;
+            background-color: red;
+            transform: none;
+        }
+    </style>
+</head>
+
+<body onload="setText();">
+    <div id="title">
+        你喜欢我吗
+    </div>
+    <button id="y" onclick="alert('我也喜欢你(/▽＼)')">是的!</button>
+    <button id="n" onmouseenter="runAway()" onclick="runAway()" onfocus="runAway()">喜欢个锤子</button>
+</body>
+
+</html>
