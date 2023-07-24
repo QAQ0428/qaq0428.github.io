@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +9,14 @@
     <script>
         function setText() {
             if (window.location.href.indexOf('?txt=') != -1) {
-            var arr = decodeURIComponent(window.location.href.split("txt=")[1]).split("`");
-            document.title = arr[0];
-            document.getElementById("title").innerText = arr[0];
-            document.getElementById("y").innerText = arr[1];
-            document.getElementById("front").innerText = arr[2];
-            document.getElementById("back").innerText = arr[1];
-            document.getElementById("y").onclick = () => alert(arr[3]);
-            document.getElementById("n").onclick = () => rotate();alert(arr[3]);
+                var arr = decodeURIComponent(window.location.href.split("txt=")[1]).split("`");
+                document.title = arr[0];
+                document.getElementById("title").innerText = arr[0];
+                document.getElementById("y").innerText = arr[1];
+                document.getElementById("front").innerText = arr[2];
+                document.getElementById("back").innerText = arr[1];
+                document.getElementById("y").onclick = () => alert(arr[3]);
+                document.getElementById("n").onclick = () => {rotate(); alert(arr[3])};
             }
         }
         function rotate() {
@@ -30,29 +31,36 @@
             margin: 0;
             padding: 0;
         }
+
         #title {
             text-align: center;
             font-weight: thin;
             font-size: 30px;
         }
-        #y, #n {
+
+        #y,
+        #n {
             width: 150px;
             height: 50px;
             border: 1px #000 solid;
             font-size: 18px;
         }
+
         #y {
             float: left;
             background-color: rgb(65, 226, 65);
         }
+
         #n {
             position: relative;
             transform-style: preserve-3d;
             float: right;
             background-color: red;
-            transition: .3s;
+            transition: .5s;
         }
-        #front, #back {
+
+        #front,
+        #back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -60,12 +68,14 @@
             text-align: center;
             line-height: 50px;
         }
+
         #back {
             transform: rotateY(-180deg);
             background-color: rgb(65, 226, 65);
         }
     </style>
 </head>
+
 <body onload="setText()">
     <div id="title">
         你喜欢我吗
@@ -77,4 +87,5 @@
     </div>
     <script>setText();</script>
 </body>
+
 </html>
