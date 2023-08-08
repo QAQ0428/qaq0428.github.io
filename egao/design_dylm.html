@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <title>自定义恶搞页面</title>
+    <script>
+        var $URL = ""
+        function updatePreview() {
+            var framework = document.getElementById("framework");
+            var text1 = document.getElementById("1");
+            var text2 = document.getElementById("2");
+            var text3 = document.getElementById("3");
+            var text4 = document.getElementById("4");
+            var text5 = document.getElementById("5");
+            $URL = `dylm${text5.value}.html?txt=${text1.value}` + "`" + text2.value + "`" + text3.value + "`" + text4.value;
+            framework.src = $URL;
+        }
+        function copyOriginalURL() {
+            navigator.clipboard.writeText("http://qaq0428.github.io/egao/" + $URL);
+            alert("已复制");
+        }
+        function copyShortURL() {
+            document.getElementById("short-url").src = "https://xiaoapi.cn/API/dwz.php?url=https://qaq0428.github.io/egao/" + $URL;
+            alert("我技术不行,情自行在页面底部复制😭")
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid gray;
+            height: 30px;
+            line-height: 30px;
+            outline: none;
+            text-align: center;
+            color: #000;
+            font-size: 20px;
+        }
+
+        input::placeholder {
+            font-size: 14px;
+        }
+        input[type=button] {
+            cursor: pointer;
+        }
+        div {
+            text-align: center;
+        }
+
+        .box {
+            flex-direction: column;
+        }
+
+        .box .head,
+        .body {
+            flex: 1;
+        }
+
+        .box .head {
+            font-size: 28px;
+        }
+
+        .box,
+        .body {
+            display: flex;
+            width: 100%;
+        }
+
+        .box .body .body-content {
+            flex: 1;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+        }
+
+        .box:last-child .body .body-content input {
+            background-color: greenyellow;
+        }
+
+        @media screen and (max-width: 750px) {
+            .box .body {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="head">设置</div>
+        <div class="body">
+            <div class="body-content"><input id="1" type="text" placeholder="在这里输入你要问的问题" onchange="updatePreview()">
+            </div>
+            <div class="body-content"><input id="2" type="text" placeholder="在这里输入第一个按钮显示的文字"
+                    onchange="updatePreview()"></div>
+            <div class="body-content"><input id="3" type="text" placeholder="在这里输入第二个按钮显示的文字"
+                    onchange="updatePreview()"></div>
+            <div class="body-content"><input id="4" type="text" placeholder="在这里输入点第一个按钮后提示的文字"
+                    onchange="updatePreview()"></div>
+            <div class="body-content"><input id="5" type="number" min="0" max="1" placeholder="选择模式"
+                    onchange="if (+document.getElementById('5').value < 0 || +document.getElementById('5').value > 1) {document.getElementById('5').value = 1;} updatePreview()">
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="head">预览</div>
+        <div class="body">
+            <div class="body-content"><iframe src="" frameborder="0" id="framework"></iframe></div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="head">生成</div>
+        <div class="body">
+            <div class="body-content"><input onclick="copyOriginalURL()" type="button" value="复制原始URL"></div>
+            <div class="body-content"><input type="button" value="复制短链接(推荐)" onclick="copyShortURL()"></div>
+        </div>
+    </div>
+    <iframe src="" frameborder="0" id="short-url"></iframe>
+</body>
+
+</html>
