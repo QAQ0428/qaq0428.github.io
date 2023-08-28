@@ -42,14 +42,15 @@
             text-align: center;
         }
 
-        main .old-group-chat, main .smart_admin, main .the-four, main .gays, main .level {
+        main .module {
             display: flex;
             align-items: center;
-            flex-direction: column;
             border-top: 1px solid gray;
             margin: 200px auto;
         }
-
+        main .module:nth-of-type(even) {
+            flex-direction: row-reverse;
+        }
         main .old-group-chat .text {
             flex: 1;
         }
@@ -98,26 +99,25 @@
         <div class="start">
             在这里, 你可以看到
         </div>
-        <div class="old-group-chat">
+        <div class="module">
             <div class="text">
-                《十年老群》
+                十五年老群
             </div>
             <div class="img">
                 <img src="../images/old_group_chat.png" alt="本群创建于2007/10/24">
             </div>
         </div>
-        <div class="smart_admin">
-            
+        <div class="module">
             <div class="text">
-                《智慧管理》
+                智慧管理
             </div>
             <div class="img">
                 <img src="../images/smart_administrator.jpg" alt="聪明の管理员">
             </div>
         </div>
-        <div class="the-four">
+        <div class="module">
             <div class="text">
-                《四大天王》
+                四大天王
             </div>
             <div class="img">
                 <img src="../images/the_four_1.png" alt="梨子想娶纱雾酱被禁言">
@@ -126,20 +126,29 @@
                 <img src="../images/the_four_4.jpg" alt="纱雾酱是某人的小娇妻">
             </div>
         </div>
-        <div class="gays">
+        <div class="module">
             <div class="text">
-                《大佬?基佬!》
+                <span style="color: red;">技</span>术大<span style="color: red;">佬</span>
             </div>
             <div class="img">
                 <img src="../images/gays.png" alt="两个基佬">
             </div>
         </div>
-        <div class="level">
+        <div class="module">
             <div class="text">
-                《分级明确》
+                分级明确
             </div>
             <div class="img">
                 <img src="../images/level.jpg" alt="分级明确">
+            </div>
+        </div>
+        <div class="module">
+            <div class="text">
+                疯狂戴夫
+            </div>
+            <div class="img">
+                <img src="../images/crazy_0.png" alt="某人彻底疯狂">
+                <img src="../images/crazy_1.png" alt="某人想撅我">
             </div>
         </div>
         <div class="end">

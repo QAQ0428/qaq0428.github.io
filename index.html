@@ -4,9 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>QAQ的网站</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <title>QAQ0428的网站</title>
+    <style>
+        body {
+            background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            box-sizing: border-box !important;
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .profile {
+            margin: 10px 10px 0;
+            text-align: center;
+            color: #fff;
+            background-color: rgba(255, 255, 255, .2);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px;
+        }
+        .profile .picture {
+            perspective: 1000px;
+        }
+        .profile .picture img {
+            border-radius: 50px;
+            overflow: hidden;
+            animation-duration: 2s;
+            animation-name: rotate;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        .profile .info {
+            font-size: 18px;
+        }
+        .profile .biography {
+            font-size: 20px;
+        }
+        @keyframes rotate {
+            from {
+                transform: none;
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        path {
+            transition: all .3s;
+            fill: gray;
+        }
+        footer {
+            width: 100%;
+            margin: 10px 10px 0;
+        }
+        .link {
+            display: flex;
+            margin: 10px 10px 0;
+            flex-direction: column;
+        }
+        .links div {
+            height: 100px;
+            background-color: rgba(255, 255, 255, .2);
+            margin: 10px 10px 0;
+            backdrop-filter: blur(10px);border-radius: 30px;
+            width: 100%;
+            transition: all .2s;
+        }
+        .links div:hover a {
+            color: rgb(35,185,243);
+        }
+        .links div img {
+            vertical-align: middle;
+        }
+        .links div a {
+            text-decoration: none;
+            color: gray;
+            line-height: 100px;
+            transition: all .3s;
+            font-size: 25px;
+            padding: 30px;
+        }
+        .links div:hover {
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body>
-    内容待编辑
+    <main>
+        <div class="profile">
+            <div class="picture">
+                <img src="images/profile_picture.png" alt="QAQ0428养过的猫猫🐱">
+            </div>
+            <div class="info">
+                <p>QAQ0428 ♂ 12岁</p>
+            </div>
+            <div class="biography">
+                本人擅长Ai, Fw, Fl, Br, Ae, Pr, Id, Ps等软件的安装与卸载, 精通CSS, JavaScript, PHP, ASP, C, C++, C#, Java, Ruby, Perl, Lisp, python, Objective-C, ActionScript, Pascal, spss, sas等单词的拼写, 熟悉Windows, Linux, Mac, Android, IOS, WP等系统的开关机!
+            </div>
+        </div>
+    </main>
+    <div class="links">
+        <div>
+            <a href="https://space.bilibili.com/544120725" target="_blank">
+                <img src="images/bilibili_icon.png" width="32" height="32">
+                </img>
+                 我的Bilibili主页
+             </a>
+         </div>
+         <div>
+            <a href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3300504251&website=www.oicqzone.com">
+                <img src="images/qq_icon.svg" width="32" height="32">
+                </img>
+                 我的QQ
+             </a>
+         </div>
+         <div>
+            <a href="http://github.com/QAQ0428" target="_blank">
+                <img src="images/github.svg" width="32" height="32">
+                </img>
+                 我的Github
+             </a>
+         </div>
+         <div>
+            <a href="https://github.com/QAQ0428/qaq0428.github.io">
+                <img src="images/github.svg" width="32" height="32">
+                </img>
+                 此项目的Github仓库
+             </a>
+         </div>
+    </div>
 </body>
 </html>
