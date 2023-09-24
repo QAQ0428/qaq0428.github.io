@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script>
+        const colors = ["#ffff00", "#ffffff", "#ff0000", "#ffa500", "#0000ff", "#008000"];
+        const ppp = 5; //每个点几像素 pixels per point
+        var diffrent;
+        function e(id) {
+            return document.getElementById(id);
+        }
+        function getSize() {
+            let size = e("size").value.split("x")
+            return [+size[0], +size[1]]
+        }
+        function randint(start, end) {
+            return Math.floor(Math.random() * (start - end)) + end
+        }
+        function choice(arr) {
+            return arr[randint(0, arr.length - 1)];
+        }
+
+        function draw() {
+            let size = getSize();
+            e("1").width = size[0] * ppp;
+            e("2").width = size[0] * ppp;
+            e("1").height = size[1] * ppp;
+            e("2").height = size[1] * ppp;
+            let ctx1 = e("1").getContext("2d");
+            let ctx2 = e("2").getContext("2d");
+            // ctx1.lineWidth = .5;
+            // ctx2.lineWidth = .5;
+            ctx1.strokeStyle = "#000000";
+            ctx2.strokeStyle = "#000000";
+            for (let i = 0; i < size[1]; i++) { //列
+                for (let j = 0; j < size[0]; j++) { //行
+                    ctx1.fillStyle = choice(colors);
+                    ctx2.fillStyle = ctx1.fillStyle;
+                    ctx1.fillRect(j * ppp, i * ppp, ppp, ppp);
+                    ctx2.fillRect(j * ppp, i * ppp, ppp, ppp);
+                    // ctx1.strokeRect(j * ppp, i * ppp, ppp, ppp);
+                    // ctx2.strokeRect(j * ppp, i * ppp, ppp, ppp);
+                }
+            }
+            diffrent = [randint(0, size[0]), randint(0, size[1])]
+            ctx2.fillStyle = choice(colors.filter(item => item !== ctx2.fillStyle))
+            ctx2.fillRect(diffrent[0] * ppp, diffrent[1] * ppp, ppp, ppp)
+        }
+        function show() {
+            alert(`${diffrent[1] + 1}行, ${diffrent[0] + 1}列`);
+        }
+    </script>
+    <title>故意找茬小游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background-color: pink;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            width: 100%;
+            border: 1px solid #000;
+        }
+
+        body .settings {
+            display: flex;
+        }
+
+        body .settings input {
+            flex: 1;
+            height: 30px;
+            margin-bottom: -10px;
+            outline: none;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        body .settings input:nth-of-type(1) {
+            flex: 3;
+        }
+
+        .canvases canvas {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="settings">
+        <input type="text" placeholder="请输入找茬的列&行(例: 10x10)" id="size">
+        <input type="button" value="绘制" onclick="draw()">
+        <input type="button" value="查看答案" onclick="show()">
+    </div>
+    <div class="canvases">
+        <canvas id="1"></canvas>
+        <canvas id="2"></canvas>
+    </div>
+</body>
+
+</html>
