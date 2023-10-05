@@ -1,0 +1,42 @@
+
+@keyframes show {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes move-in {
+    from {
+        transform: translate(-100%);
+    }
+
+    to {
+        transform: translate(0);
+    }
+}
+
+@keyframes move {
+    from {
+        transform: translate(-100%);
+    }
+
+    to {
+        transform: translate(100%);
+    }
+}
+
+@keyframes sponsor-text {
+    from {
+        transform: translateX(-60%);
+    }
+
+    to {
+        transform: translateX(60%);
+    }
+}

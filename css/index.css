@@ -1,0 +1,109 @@
+body {
+    background-color: pink;
+    box-sizing: border-box !important;
+    overflow-x: hidden;
+}
+
+.profile {
+    margin: 10px 10px 0;
+    text-align: center;
+    color: pink;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 10px;
+    animation: show 1s;
+}
+
+
+.profile .picture img {
+    border-radius: 50px;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+.profile .info {
+    font-size: 16px;
+}
+
+.profile .biography {
+    font-size: 20px;
+}
+
+.technology_stack .technology_stack_head {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+    background-color: #fff;
+    color: pink;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    animation: move-in 1s .8s backwards;
+}
+
+.technology_stack .technology_stack_body .technology_stack_list {
+    margin-top: 10px;
+}
+
+.technology_stack .technology_stack_list .technology_stack_item {
+    background: linear-gradient(90deg, #fff, pink);
+    font-size: 30px;
+    padding-left: 2em;
+    color: pink;
+    height: 100px;
+    line-height: 100px;
+    border-bottom: 2px dotted;
+
+}
+
+.technology_stack .technology_stack_body .technology_stack_list .technology_stack_item:last-child {
+    border-bottom: 0;
+}
+
+.sponsor,
+.thanks {
+    margin-top: 30px;
+}
+
+.sponsor .sponsor_head,
+.thanks .thanks_head {
+    text-align: center;
+    background-color: #fff;
+    color: red;
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    animation: move-in 1s 5s backwards;
+}
+
+.sponsor .sponsor_body {
+    height: 50px;
+    line-height: 50px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px;
+    animation: move-in 1s 6.5s backwards;
+    background-color: #fff;
+    border-top: 1px dotted pink;
+}
+
+.sponsor .sponsor_body .sponsor_text {
+    animation: sponsor-text 3s 6.5s linear infinite;
+}
+
+.thanks .thanks_head {
+    animation: move-in 1s 8s backwards;
+}
+
+.thanks .thanks_body {
+    animation: show 1s 9.5s backwards;
+    font-size: 33px;
+    text-indent: 2em;
+    border-radius: 10px;
+    margin-top: 30px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #fff;
+}
