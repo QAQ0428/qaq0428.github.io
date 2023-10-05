@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <title>小秘密</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            position: relative;
+            display: flex;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        main div {
+            flex: 9;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        main #range {
+            flex: 1;
+            transform: rotate(-90deg);
+            
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="hand" id="hand">✊</div>
+        <p>滑动滑条到最顶部有惊喜!  →</p>
+        <input type="range" name="range" id="range" onchange="e('hand').innerText = e('range').value == '100'? '🖕' : '✊';">
+    </main>
+    <script>
+        e = (id) => document.getElementById(id);
+        document.body.style.height = document.documentElement.clientHeight + "px";
+        e("range").value = "0";
+    </script>
+</body>
+
+</html>

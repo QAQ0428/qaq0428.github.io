@@ -4,7 +4,6 @@ footer {
     margin-top: 100px;
     background-color: #3d3c3c;
     color: gray;
-    animation: move-in 2s 11s backwards;
 }
 
 footer img {
