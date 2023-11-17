@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <title>QAQ0428专属起始页</title>
+    <script>
+        function date() {
+            let dt = new Date();
+            return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日 星期${["日", "一", "二", "三", "四", "五", "六"][dt.getDay()]}`;
+        }
+        function time() {
+            let dt = new Date();
+            return `${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;
+        }
+        function search(event) {
+            event = event || window.event;
+            if (event.keyCode == 13) {
+                window.open(`https://cn.bing.com/search?q=${e("input").value}`, "_blank")
+            }
+        }
+        let e = (id) => document.getElementById(id);
+    </script>
+    <style>
+        html {
+            height: 100vh;
+            background-color: #FFDEE9;
+            background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+            color: #666;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        body {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        body div {
+            flex: 1;
+        }
+
+        #date {
+            font-size: 18px;
+        }
+
+        #time {
+            font-size: 36px;
+            letter-spacing: .5em;
+        }
+
+        #input {
+            width: 100%;
+            outline: none;
+            border: 1px solid transparent;
+            text-align: center;
+            border-radius: 20px;
+            height: 40px;
+            color: #666;
+            transition: all .3s;
+        }
+        #input:hover, #input:focus {
+            border: 1px solid #000;
+        }
+        #links {
+            display: flex;
+        }
+        #links .btn {
+            flex: 1;
+            margin: 0 10px;
+            
+           
+        }
+        #links .btn .link {
+            display: inline-block;
+            width: 50px;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 50%;
+            height: 50px;
+             line-height: 50px;
+            font-size: 40px;
+            text-decoration: none;
+            color: #666;
+            transition: all .3s;
+        }
+        #links .btn .link:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="block"></div>
+    <div class="block" id="datetime">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
+    <div class="block" id="search"><input placeholder="输入搜索的内容 按下Enter以搜索" type="text" name="input" id="input"></div>
+    <div class="block" id="links">
+        <div class="btn"><a href="https://www.bilibili.com" target="_blank" class="link">哔</a></div>
+        <div class="btn"><a href="https://github.com" target="_blank" class="link">码</a></div>
+        <div class="btn"><a href="https://www.cnblogs.com" target="_blank" class="link">博</a></div>
+        <div class="btn"><a href="https://tieba.baidu.com/" target="_blank" class="link">贴</a></div>
+        <div class="btn"><a href="https://leetcode.cn/problemset/all/" target="_blank" class="link">题</a></div>
+    </div>
+    <div class="block"></div>
+    <script>
+        let timeEle = e("time");
+        let dateEle = e("date");
+        dateEle.innerText = date();
+        timeEle.innerText = time()
+        setInterval(function () { timeEle.innerText = time(), dateEle.innerText = date() }, 1000);
+        e("input").addEventListener("keydown", search)
+    </script>
+</body>
+
+</html>
