@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <script>
+        let e = (id) => document.getElementById(id);
+        function getDate() {
+            let dt = new Date();
+            let h = dt.getHours();
+            let m = dt.getMinutes();
+            let s = dt.getSeconds();
+            return {hours: h, minutes: m, seconds: s};
+        }
+        function update() {
+            let hElement = e("hour");
+            let mElement = e("minute");
+            let sElement = e("second");
+            let dt = getDate();
+            hElement.style.transform = `rotate(${(dt.hours + dt.minutes / 60 + dt.seconds / 3600) * 30}deg)`;
+            mElement.style.transform = `rotate(${(dt.minutes + dt.seconds / 60) * 6}deg)`;
+            sElement.style.transform = `rotate(${dt.seconds * 6}deg)`;
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #ccc;
+            box-sizing: border-box;
+        }
+        .clock {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            left: 50%;
+            border-radius: 50%;
+            border: 1px solid #000;
+            box-shadow: inset 0px 0px 5px 5px gray, 9px 9px 5px #837e7e;
+            background-image: url(../images/clock.png);
+            background-size: contain;
+            
+        }
+        .clock div {
+            position: absolute;
+            right: 0;
+            width: 100px;
+            height: 100px;
+        }
+        .clock .hour #hour {
+            border-left: 5px solid #000;
+            width: 50px;
+            height: 50px;
+        }
+        .clock .minute #minute {
+            border-left: 3px solid #000;
+            width: 70px;
+            height: 70px;
+        }
+        .clock .second #second {
+            border-left: 1px solid #000;
+            width: 90px;
+            height: 90px;
+        }
+        .clock div div { /* 指针 */
+            left: 0;
+            bottom: 0;
+            transform-origin: bottom left;
+        }
+        .clock .dot #dot {
+            width: 10px;
+            height: 10px;
+            bottom: -5px;
+            left: -5px;
+            border-radius: 50%;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="hour">
+            <div id="hour"></div>
+        </div>
+        <div class="minute">
+            <div id="minute"></div>
+        </div>
+        <div class="second">
+            <div id="second"></div>
+        </div>
+        <div class="dot">
+            <div id="dot"></div>
+        </div>
+    </div>
+    <script>
+        update();
+        setInterval(update, 1000);
+    </script>
+</body>
+</html>
