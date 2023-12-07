@@ -16,13 +16,14 @@
             let dt = new Date();
             return `${dt.getHours()}:${dt.getMinutes()}:${dt.getSeconds()}`;
         }
+        let e = (id) => document.getElementById(id);
         function search(event) {
             event = event || window.event;
             if (event.keyCode == 13) {
-                window.open(`https://cn.bing.com/search?q=${e("input").value}`, "_blank")
+                window.open(`https://cn.bing.com/search?q=${e("input").value}`, "_blank");
+                e("input").value = "";
             }
         }
-        let e = (id) => document.getElementById(id);
     </script>
     <style>
         html {
@@ -64,18 +65,23 @@
             color: #666;
             transition: all .3s;
         }
-        #input:hover, #input:focus {
+
+        #input:hover,
+        #input:focus {
             border: 1px solid #000;
         }
+
         #links {
             display: flex;
         }
+
         #links .btn {
             flex: 1;
             margin: 0 10px;
-            
-           
+
+
         }
+
         #links .btn .link {
             display: inline-block;
             width: 50px;
@@ -83,12 +89,13 @@
             border: 1px solid #000;
             border-radius: 50%;
             height: 50px;
-             line-height: 50px;
+            line-height: 50px;
             font-size: 40px;
             text-decoration: none;
             color: #666;
             transition: all .3s;
         }
+
         #links .btn .link:hover {
             color: #000;
         }
