@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+:root {
+    background: var(--bg_color);
+    color: var(--fg_color);
+    scroll-behavior: smooth;
+}
+
+/* 不同主题的颜色 */
+:root.note_light {
+    --fg_color: #666;
+    --bg_color: #fff;
+}
+
+:root.note_dark {
+    --fg_color: gray;
+    --bg_color: #000;
+}
+
+:root.note_pink {
+    --fg_color: #fff;
+    --bg_color: pink;
+}
+
+:root,
+body>[class^=note] {
+    height: 100vh;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+body {
+    display: flex;
+}
+
+body .note_menu,
+.note_bar {
+    flex: 1;
+}
+
+body .note_main {
+    flex: 3;
+    border: 1px solid var(--fg_color);
+    padding: 10px;
+}
+
+body .note_main .note_main_head {
+    text-align: center;
+    border-bottom: 1px dotted var(--fg_color);
+}
+
+/* 为了js滚动 */
+body .note_main .note_main_body {
+    position: relative;
+}
+
+/* PC端隐藏 */
+body .note_main .note_main_body .note_footer {
+    display: none;
+}
+
+.note_paragraph {
+    padding-left: 2em;
+    text-indent: 2em;
+    font-size: 20px;
+}
+
+/* 数学公式太小了 */
+math {
+    font-size: 30px;
+}
+
+/* 小表情 */
+.note_icon {
+    font-size: 2em;
+    vertical-align: middle;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    color: transparent;
+}
+
+/* 突出强调 */
+.important {
+    font-size: 2em;
+    color: red;
+    font-weight: 400;
+}
+
+/* 类似萌娘百科那样的文字隐藏 */
+.hidden {
+    background-color: var(--fg_color);
+    border-radius: 99999px;
+    transition: all .5s;
+}
+
+.hidden:hover {
+    color: var(--bg_color);
+}
+
+/* 超链接 */
+.note_link {
+    color: skyblue;
+    text-decoration: underline;
+}
+
+/* 大图片 */
+.note_image {
+    text-align: center;
+    margin: 20px auto;
+    margin-left: -4em;
+}
+
+.note_image_des {
+    font-size: 16px;
+}
+
+.note_image_content {
+    background-size: contain;
+}
+
+/* 表格 */
+.note_table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 20px auto;
+    border-color: var(--fg_color);
+    width: 100%;
+    margin-left: -1em;
+}
+
+/* 列表 */
+.note_list_item {
+    list-style-type: none;
+}
+
+.note_list_item::before {
+    content: "•";
+    margin-right: 1em;
+}
+
+.note_warning,
+.note_info,
+.note_error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--fg_color);
+    margin: 20px auto;
+    margin-left: -2em;
+    border-left: 15px solid var(--fg_color);
+    height: 100px;
+}
+
+.note_warning_icon,
+.note_info_icon, .note_error_icon {
+    flex: 1;
+    background-image: url(../images/warning_icon.png);
+    background-repeat: no-repeat;
+    background-size: 52px 52px;
+    height: 52px;
+    background-position: 50% 50%;
+    vertical-align: middle;
+}
+
+.note_info_icon {
+    background-image: url(../images/info_icon.png);
+}
+.note_error_icon {
+    background-image: url(../images/error_icon.png);
+}
+.note_warning_content,
+.note_info_content,
+.note_error_content {
+    flex: 4;
+}
+
+pre {
+    margin-left: -2em;
+}
+
+body .note_bar {
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    height: unset;
+}
+
+body .note_bar .note_btn {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--fg_color);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    transition: all .3s;
+    margin: 20px;
+}
+
+body .note_bar .note_btn:hover {
+    color: var(--bg_color);
+    background-color: rgba(255, 255, 255, .3);
+    backdrop-filter: blur(15px);
+}
+
+.note_menu .note_section {
+    height: 50px;
+    border-bottom: 1px solid var(--fg_color);
+    line-height: 50px;
+    transition: all .3s;
+    padding-left: 2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: nowrap;
+}
+
+.note_menu .note_section:hover {
+    background-color: var(--fg_color);
+    color: var(--bg_color);
+}
+
+[onclick] {
+    cursor: pointer;
+}
+
+/* 屏幕小的就不要两边了, 放下面 */
+@media screen and (max-width: 767px) {
+
+    body .note_menu,
+    body .note_bar {
+        display: none;
+    }
+
+    body .note_main .note_main_body .note_footer {
+        display: flex;
+    }
+
+    .note_footer .note_btn {
+        flex: 1;
+    }
+
+    .note_footer .note_btn:nth-child(2) {
+        text-align: center;
+    }
+
+    .note_footer .note_btn:last-child {
+        text-align: right;
+    }
+}
