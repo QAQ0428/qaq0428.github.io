@@ -232,7 +232,7 @@ body .note_bar .note_btn:hover {
     cursor: pointer;
 }
 
-/* 屏幕小的就不要两边了, 放下面 */
+/* 屏幕小的就不要侧边栏了, 放下面 */
 @media screen and (max-width: 767px) {
 
     body .note_menu,
@@ -250,6 +250,8 @@ body .note_bar .note_btn:hover {
 
     .note_footer .note_btn:nth-child(2) {
         text-align: center;
+        border-left: 1px solid var(--fg_color);
+        border-right: 1px solid var(--fg_color);
     }
 
     .note_footer .note_btn:last-child {
