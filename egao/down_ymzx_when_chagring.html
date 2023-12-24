@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插上充电器有惊喜</title>
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="text">
+        插上充电器试试!<br>若已插上, 拔掉再插! 
+    </h2>
+    <script>
+        let charging = false;
+        navigator.getBattery().then((battery) => {
+            charging = battery.charging;
+            battery.addEventListener("chargingchange", () => {
+                charging = battery.charging;
+                if (charging) {
+                    window.location.href = "https://ymzx.qq.com/zlkdatasys/mct/d/play.shtml";
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
