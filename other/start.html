@@ -20,7 +20,7 @@
         function search(event) {
             event = event || window.event;
             if (event.keyCode == 13) {
-                window.open(`https://cn.bing.com/search?q=${e("input").value}`, "_blank");
+                window.open(`https://cn.bing.com/search?q=${encodeURIComponent(e("input").value)}`, "_blank");
                 e("input").value = "";
             }
         }
