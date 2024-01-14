@@ -126,11 +126,12 @@
         let gender = "random";
         let howMany = 1;
         let timer = 0;
-        let range = {
+        const genderToRange = {
             "random": [1, 41],
             "boy": [1, 19],
             "girl": [20, 41]
-        }[gender];
+        }
+        let range = genderToRange[gender];
         function randInt(a, b) { // 返回区间 [a, b] 里的随机整数
             return Math.floor(Math.random() * (b - a + 1) + a);
         }
@@ -176,15 +177,15 @@
                 <label for="showDirect">直接展示结果</label>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="isBoy" onchange="gender = 'boy';">
+                <input type="radio" name="gender" id="isBoy" onchange="gender = 'boy';range = genderToRange[gender]">
                 <label for="isBoy">抽取男同学</label><br>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="isGirl" onchange="gender = 'girl';">
+                <input type="radio" name="gender" id="isGirl" onchange="gender = 'girl';range = genderToRange[gender]">
                 <label for="isGirl">抽取女同学</label>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="randomGender" checked onchange="gender = 'random';">
+                <input type="radio" name="gender" id="randomGender" checked onchange="gender = 'random';range = genderToRange[gender]">
                 <label for="randomGender">抽取男或女同学</label>
             </div>
             <div class="setting_item">
