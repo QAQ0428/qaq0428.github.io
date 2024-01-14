@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>702 随机点名 作者 1号</title>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #eee;
+            color: gray;
+            text-align: center;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .main_window {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            height: 90vh;
+            width: 90vw;
+            overflow: hidden;
+            border-radius: 5vh;
+            box-shadow: #ccc 15px 15px 10px;
+        }
+
+        .settings {
+            flex: 30%;
+            border-right: 2px dashed #eee;
+            height: 90vh;
+            margin-top: 15px;
+            overflow: hidden;
+            text-align: left;
+
+        }
+
+        .settings .setting_item {
+            margin-left: 2em;
+        }
+
+        .settings .setting_item input[type="number"] {
+            outline: none;
+        }
+
+        .settings .title {
+            margin-left: 1em;
+            padding-left: 5px;
+            border-left: 5px solid gray;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            flex: 70%;
+            height: 100%;
+            overflow: scroll;
+        }
+
+        .content .ui {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 20%;
+            padding: 30px;
+            border-bottom: 2px dashed #eee;
+        }
+
+        .content .ui #next, .shortcut_set .shortcut {
+            border-radius: 10000px;
+            width: 70%;
+            height: 90%;
+            font-size: 40px;
+            background-color: #fff;
+            transition: all .5s;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        .content .ui #next:hover, .shortcut_set .shortcut:hover {
+            background-color: #000;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .content .results {
+            flex: 80%;
+        }
+
+        .res_item {
+
+            font-size: 35px;
+            border-bottom: 2px dashed #eee;
+        }
+
+        #howMany {
+            color: gray;
+        }
+        .shortcut_set {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .shortcut_set .shortcut {
+            font-size: 20px;            
+        }
+    </style>
+    <script>
+        let e = (id) => document.getElementById(id);
+        let showDirect = true;
+        let gender = "random";
+        let howMany = 1;
+        let timer = 0;
+        let range = {
+            "random": [1, 41],
+            "boy": [1, 19],
+            "girl": [20, 41]
+        }[gender];
+        function randInt(a, b) { // 返回区间 [a, b] 里的随机整数
+            return Math.floor(Math.random() * (b - a + 1) + a);
+        }
+        let randStu = () => randInt(1, 41);
+        let randBoy = () => randInt(1, 19);
+        let randGirl = () => randInt(20, 41);
+        function pause() { // 按钮按下以后的事件
+                clearInterval(timer);
+                button.innerText = "启动! ";
+                button.onclick = next;
+            }
+        function next() { // 抽取一位同学
+            results.innerHTML = "";
+            for (let i = 0; i < howMany; i++) {
+                results.innerHTML += `<div class="res_item">${randInt(range[0], range[1])}号</div>`;
+            }
+            if (showDirect) {
+
+            }
+            else { // 通过按暂停来确定
+                timer = setInterval(
+                    function () {
+                        for (let i = 0; i < results.children.length; i++) {
+                            const element = results.children[i];
+                            element.innerText = randInt(range[0], range[1]) + "号";
+                        }
+                    }, 100
+                );
+                button.onclick = pause;
+                button.innerText = "就决定是你" + (howMany == 1 ? "" : "们") + "了! ";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <main class="main_window">
+        <div class="settings">
+            <h2 class="title">设置</h2>
+            <div class="setting_item">
+                <input type="checkbox" name="showDirect" id="showDirect" checked="checked"
+                    onchange="showDirect = e('showDirect').checked;">
+                <label for="showDirect">直接展示结果</label>
+            </div>
+            <div class="setting_item">
+                <input type="radio" name="gender" id="isBoy" onchange="gender = 'boy';">
+                <label for="isBoy">抽取男同学</label><br>
+            </div>
+            <div class="setting_item">
+                <input type="radio" name="gender" id="isGirl" onchange="gender = 'girl';">
+                <label for="isGirl">抽取女同学</label>
+            </div>
+            <div class="setting_item">
+                <input type="radio" name="gender" id="randomGender" checked onchange="gender = 'random';">
+                <label for="randomGender">抽取男或女同学</label>
+            </div>
+            <div class="setting_item">
+                <span>抽取</span>
+                <input type="number" placeholder="[1, +∞)" min="1" id="howMany" value="1"
+                    onchange="howMany = +e('howMany').value;">
+                <span>次</span>
+            </div>
+            <h2 class="title">快捷方式</h2>
+            <div class="shortcut_set">
+            <button class="shortcut" onclick="pause();results.innerHTML = `<div class=res_item>${randBoy()}号</div><div class=res_item>${randGirl()}号</div>`;">抽一男一女</button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="ui">
+                <button onclick="next()" id="next">启动!</button>
+            </div>
+            <div class="results" id="results">
+            </div>
+        </div>
+    </main>
+    <script>
+        let button = e("next");
+        let results = e("results"); // 结果的父容器
+    </script>
+</body>
+
+</html>
