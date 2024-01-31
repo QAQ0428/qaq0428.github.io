@@ -1,109 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
-    background-color: pink;
-    box-sizing: border-box !important;
-    overflow-x: hidden;
-}
-
-.profile {
-    margin: 10px 10px 0;
-    text-align: center;
-    color: pink;
     background-color: #fff;
-    border-radius: 30px;
-    padding: 10px;
-    animation: show 1s;
+    color: rgba(255, 255, 255, .6);
+    height: 100vh;
+    text-align: center;
+    box-sizing: border-box;
+    --direct: 62deg;
+    background-color: #fff;
 }
-
-
-.profile .picture img {
-    border-radius: 50px;
+main.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+main.main .part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 20px;
+}
+main.main .part:last-child {
+    flex-direction: column;
+}
+main.main .part:last-child section.sect:nth-of-type(1) {
+    flex: 3;
+}
+main.main .part:last-child section.sect:nth-of-type(2) {
+    flex: 7;
+}
+main.main .part:last-child section.sect:nth-of-type(2) div {
+    flex: 1;
+}
+section.sect {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    margin: 10px;
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);    
+    border-radius: 15px;
+    height: 100%;
+}
+section.sect::before {
+    border-radius: 15px;
+    position: absolute;
+    content: '';
+    opacity: .9;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+    filter: blur(15px);
+    width: 105%;
+    height: 105%;
+    z-index: -1;
+}
+.part:nth-of-type(2) section.sect
+.prof_pic {
+    flex: 2;
+    padding: 20px;
+}
+.part:nth-of-type(2) section.sect .prof_pic img {
+    border-radius: 10000px;
     overflow: hidden;
-    width: 100px;
-    height: 100px;
+    vertical-align: middle;
+    width: 100%;
 }
-
-.profile .info {
-    font-size: 16px;
+.part:nth-of-type(2) section.sect .info {
+    flex: 8;
+    display: flex;
+    flex-direction: column;
 }
-
-.profile .biography {
+.part:nth-of-type(2) section.sect .info span {
+    margin: 10px;
     font-size: 20px;
 }
-
-.technology_stack .technology_stack_head {
-    text-align: center;
-    font-size: 28px;
-    margin-top: 20px;
-    background-color: #fff;
-    color: pink;
+.contact_me {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
-    animation: move-in 1s .8s backwards;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
-
-.technology_stack .technology_stack_body .technology_stack_list {
-    margin-top: 10px;
+.link {
+    display: flex;
+    position: relative;
+    flex: 1;
+    cursor: pointer;
+    justify-content: left;
+    align-items: center;
+    font-size: 2em;
+    padding-left: 0.5em;
+    transition: all .4s;
 }
-
-.technology_stack .technology_stack_list .technology_stack_item {
-    background: linear-gradient(90deg, #fff, pink);
-    font-size: 30px;
-    padding-left: 2em;
-    color: pink;
-    height: 100px;
-    line-height: 100px;
-    border-bottom: 2px dotted;
-
+.link::after {
+    content: '';
+    position: absolute;
+    bottom: .5em;
+    background-color: rgba(255, 255, 255, .6);
+    width: 0%;
+    height: 5px;
+    transition: all .4s;
 }
-
-.technology_stack .technology_stack_body .technology_stack_list .technology_stack_item:last-child {
-    border-bottom: 0;
+.link:hover::after {
+    width: 95%;
 }
-
-.sponsor,
-.thanks {
-    margin-top: 30px;
+.part .sect .bio {
+    font-size: 18px;
 }
-
-.sponsor .sponsor_head,
-.thanks .thanks_head {
-    text-align: center;
-    background-color: #fff;
-    color: red;
-    height: 50px;
-    line-height: 50px;
-    font-size: 22px;
-    animation: move-in 1s 5s backwards;
+.part:nth-of-type(1) .sect {
+    display: flex;
+    flex-direction: column;
 }
-
-.sponsor .sponsor_body {
-    height: 50px;
-    line-height: 50px;
-    color: #000;
-    font-weight: bold;
-    text-align: center;
-    font-size: 30px;
-    animation: move-in 1s 6.5s backwards;
-    background-color: #fff;
-    border-top: 1px dotted pink;
+.part:nth-of-type(1) .sect div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
-
-.sponsor .sponsor_body .sponsor_text {
-    animation: sponsor-text 3s 6.5s linear infinite;
+.part:nth-of-type(1) .sect .bio {
+    justify-content: center;
+    padding: 1em;
 }
-
-.thanks .thanks_head {
-    animation: move-in 1s 8s backwards;
-}
-
-.thanks .thanks_body {
-    animation: show 1s 9.5s backwards;
-    font-size: 33px;
-    text-indent: 2em;
-    border-radius: 10px;
-    margin-top: 30px;
-    color: #fff;
-    text-align: center;
-    border: 1px solid #fff;
+/* 对移动端布局进行调整 */
+@media screen and (max-width: 767px) {
+    body {
+        overflow: scroll;
+        height: unset;
+    }
+    main.main {
+        flex-direction: column-reverse;
+    }
+    main.main .part:last-of-type {
+        padding-bottom: 0;
+    }
+    .link::after {
+        bottom: 0 !important;
+    }
 }

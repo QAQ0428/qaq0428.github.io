@@ -1,122 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAQ0428-主页</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/index.css">
-    <title>QAQ0428的网站</title>
-    <style>
-        footer {
-            animation: move-in 2s 11s backwards;
-        }
-    </style>
-    <script>
-        e = (id) => document.getElementById(id);
-        function cry() {
-            let audio = new Audio("media/bananacat_cry.mp3");
-            audio.play();
-            let touxiang = e("qaq");
-            touxiang.src = "images/bananacat_cry.gif";
-            setTimeout(() => touxiang.src = "images/profile_picture.png", 6000);
-        }
-    </script>
 </head>
-
-<body onload="
-    let items = document.getElementsByClassName('technology_stack_item');
-    let style = document.getElementsByTagName('style')[0];
-        for (let i = 0; i < items.length; i++) {
-            style.innerText += `
-        .technology_stack_item:nth-child(${i + 1}) {
-            animation: move-in 1s ${+(1.6 + .3 * i)}s backwards;
-        }
-    `
-        }
-    let links = document.getElementsByClassName('footer_mod_item');
-    for (let i = 0; i < links.length; i++) {
-        const link = links[i];
-        link.addEventListener('click', () => window.location.href = link.getAttribute('href'))
-    }
-">
-    <main>
-        <div class=" profile">
-            <div class="picture" onclick="cry();">
-                <img src="images/profile_picture.png" id="qaq" alt="QAQ0428养过的猫猫🐱">
-            </div>
-            <div class="info">
-                <p>QAQ0428 ♂ 12岁</p>
-            </div>
-            <div class="biography">
-                本人没啥值得炫耀的, 闲着没事就玩玩魔方或写写代码. 学过一点点Py, 一点点C++, 一点点C#, 一点点HTML与CSS.(不要点我头像)
-            </div>
-        </div>
-        <div class="technology_stack">
-            <div class="technology_stack_head">技术栈</div>
-            <div class="technology_stack_body">
-                <div class="technology_stack_list">
-                    <div class="technology_stack_item">这</div>
-                    <div class="technology_stack_item">里</div>
-                    <div class="technology_stack_item">什</div>
-                    <div class="technology_stack_item">么</div>
-                    <div class="technology_stack_item">也</div>
-                    <div class="technology_stack_item">没</div>
-                    <div class="technology_stack_item">有</div>
+<body>
+    <main class="main">
+        <!-- 整体有两部分 -->
+        <div class="part">
+            <!-- 自我介绍以及其它页面 -->
+            <section class="sect">
+                <div class="bio">
+                    我是一个普通初中生, 喜欢前端, 没有什么出众的地方. 希望能和你成为朋友! (学习太累了!!!)
+                    下面是我写的一些乱七八糟的页面
                 </div>
-            </div>
+                <div class="my_pages">
+                    <div class="link" url="egao/the_middle_finger.html">国际手势</div>
+                    <div class="link" url="other/start.html">"简洁"的起始页</div>
+                    <div class="link" url="egao/design_dylm.html">莫得选择</div>
+                    <div class="link" url="other/all_notes">我的笔记(暂无)</div>
+                </div>
+            </section>
         </div>
-        <div class="sponsor">
-            <div class="sponsor_head">我们的赞助商! </div>
-            <div class="sponsor_body">
-                <div class="sponsor_text">我自己</div>
-            </div>
-        </div>
-        <div class="thanks">
-            <div class="thanks_head">特别鸣谢! </div>
-            <div class="thanks_body">
-                感谢天感谢地感谢微软感谢Windows感谢VSCode感谢Pink老师感谢Code Compiler α感谢纱雾感谢修勾感谢我自己感谢HTML感谢CSS感谢JS感谢爸爸感谢妈妈感谢所有人!
-            </div>
+        <div class="part">
+            <!-- 个人信息 -->
+            <section class="sect">
+                <div class="prof_pic">
+                    <img src="images/profile_picture.png" alt="" id="qaq">
+                </div>
+                <div class="info">
+                    <span>QAQ0428</span>
+                    <span><b>男</b>!</span>
+                    <span>12岁</span>
+                </div>
+            </section>
+            <section class="sect">
+                <div class="contact_me">
+                    <div class="link" url="http://wpa.qq.com/msgrd?v=3&uin=3300504251&site=qq&menu=yes">我的QQ</div>
+                    <div class="link" url="javascript:alert('LanZichen_Handsome')">我的微信</div>
+                    <div class="link" url="https://github.com/QAQ0428">我的GitHub</div>
+                    <div class="link" url="https://space.bilibili.com/544120725">我的bilibili</div>
+                </div>
+            </section>
         </div>
     </main>
-    <footer>
-        <div class="footer_mod">
-            <div class="footer_mod_head">联系我们(应该是"联系我"QAQ)</div>
-            <div class="footer_mod_body">
-                <div class="footer_mod_item" href="https://space.bilibili.com/544120725"><img
-                        src="images/bilibili_icon.png" alt="">我的B站账号</div>
-                <div class="footer_mod_item" href="http://wpa.qq.com/msgrd?v=3&uin=3300504251&site=qq&menu=yes"><img
-                        src="images/qq_icon.svg" alt="">我的QQ账号</div>
-                <div class="footer_mod_item" href="https://github.com/qaq0428"><img src="images/github.svg"
-                        alt="">我的github账号</div>
-                <div class="footer_mod_item" href="https://github.com/QAQ0428/qaq0428.github.io"><img
-                        src="images/github.svg" alt="">此项目的github仓库</div>
-            </div>
-        </div>
-        <div class="footer_mod">
-            <div class="footer_mod_head">一些乱七八糟的页面</div>
-            <div class="footer_mod_body">
-                <div class="footer_mod_item" href="https://qaq0428.github.io/QAQ0428最帅了.html">莫名其妙的404页面</div>
-                <div class="footer_mod_item" href="egao/design_dylm.html">不知所云的恶搞页面生成</div>
-                <div class="footer_mod_item" href="game/cyjl.html">稀里糊涂的成语接龙</div>
-                <div class="footer_mod_item" href="game/compere.html">歪七扭八的找不同</div>
-            </div>
-        </div>
-        <div class="footer_mod">
-            <div class="footer_mod_head">友情链接(单向的友情)</div>
-            <div class="footer_mod_body">
-                <div class="footer_mod_item"
-                    href="https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=3Hzb26XBb7TC-DVix10PZ_mpa2FeySwQ&authKey=Qc8N5%2FqU2tYzRqbscPQuwYMVV54Ds7pyPMf8uFnGlgRXanzeLpmwG03rCc38ybxf&noverify=0&group_code=49110687">
-                    IT交流 QQ群</div>
-                <div class="footer_mod_item"
-                    href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=1o2T0yM9TB68dk4Q9bN9bNsgVYxsYRK7&authKey=G12fhQDMEeg2ZrKgrZSLPAcDDfjBH8%2FNkRdIiz1ZAoUhHpPfw7CGqcuU9fJCY%2Bzp&noverify=0&group_code=779374242">
-                    Web全栈QQ交流群</div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // 让QAQ0428被点击时变成香蕉猫
+        let qaq = document.querySelector("#qaq")
+        qaq.addEventListener("click", function () {
+            qaq.src = "images/bananacat_cry.gif"
+            new Audio("media/bananacat_cry.mp3").play()
+            setTimeout(function(){qaq.src = "images/profile_picture.png"}, 5000)
+        })
+        // 初始化 div 链接
+        let links = document.getElementsByClassName("link")
+        for (let i = 0; i < links.length; i++) {
+            const element = links[i]
+            element.addEventListener("click", function() {
+                window.open(this.getAttribute("url"))
+            })
+        }
+    </script>
 </body>
-
 </html>
