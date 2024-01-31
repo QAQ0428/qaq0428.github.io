@@ -35,7 +35,7 @@
             height: 90vh;
             width: 90vw;
             overflow: hidden;
-            border-radius: 5vh;
+            border-radius: 50px;
             box-shadow: #ccc 15px 15px 10px;
         }
 
@@ -46,7 +46,6 @@
             margin-top: 15px;
             overflow: hidden;
             text-align: left;
-
         }
 
         .settings .setting_item {
@@ -119,6 +118,32 @@
         .shortcut_set .shortcut {
             font-size: 20px;            
         }
+        @media screen and (max-width: 767px) {
+            .main_window {
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .settings, .content {
+                width: 100%;
+            }
+            .settings {
+                border-bottom: 2px dashed #eee;
+                border-right: 0;
+                text-align: center;
+                overflow: visible;
+                padding-bottom: 20px;
+            }
+            .settings .setting_item {
+                margin-left: 0;
+            }
+            .settings .title {
+                text-align: left;
+            }
+            .content .ui #next {
+                width: 100%;
+                font-size: 26px;
+            }
+        }
     </style>
     <script>
         let e = (id) => document.getElementById(id);
@@ -130,7 +155,7 @@
             "random": [1, 41],
             "boy": [1, 19],
             "girl": [20, 41]
-        }
+        };
         let range = genderToRange[gender];
         function randInt(a, b) { // 返回区间 [a, b] 里的随机整数
             return Math.floor(Math.random() * (b - a + 1) + a);
