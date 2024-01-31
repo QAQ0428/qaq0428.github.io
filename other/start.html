@@ -100,12 +100,6 @@
 
         #links .btn .link:hover {
             color: #000;
-            animation: rotate .8s;
-        }
-        @keyframes rotate {
-            to {
-                transform: rotate(1turn);
-            }
         }
     </style>
 </head>
@@ -117,13 +111,8 @@
         <div id="time"></div>
     </div>
     <div class="block" id="search"><input placeholder="输入搜索的内容 按下Enter以搜索" type="text" name="input" id="input"></div>
-    <div class="block" id="links">
-        <div class="btn"><a href="https://www.bilibili.com" target="_blank" class="link">哔</a></div>
-        <div class="btn"><a href="https://github.com" target="_blank" class="link">码</a></div>
-        <div class="btn"><a href="https://www.cnblogs.com" target="_blank" class="link">博</a></div>
-        <div class="btn"><a href="https://tieba.baidu.com/" target="_blank" class="link">贴</a></div>
-        <div class="btn"><a href="https://leetcode.cn/problemset/all/" target="_blank" class="link">题</a></div>
-    </div>
+    <!-- 这两个元素是占位置的 -->
+    <div class="block"></div>
     <div class="block"></div>
     <script>
         let timeEle = e("time");
