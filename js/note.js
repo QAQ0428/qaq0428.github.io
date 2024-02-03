@@ -32,14 +32,14 @@ function scrollToAnElement(id) {
 function initMenu() {
     const sections = getSections();
     for (let i = 0; i < sections.length; i++) {
-        const subtitle = sections[i].textContent;
-        const id = subtitle.replaceAll(" ", "")
+        const content = sections[i].textContent;
+        const id = content.replaceAll(" ", "")
         sections[i].id = id;
         let section = `
             <div class="note_section" onclick="
                 scrollToAnElement('${id}')
             ">
-                ${subtitle}
+                ${content}
             </div>`;
         e("menu").insertAdjacentHTML("beforeend", section);
     }

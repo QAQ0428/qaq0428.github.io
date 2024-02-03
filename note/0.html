@@ -9,8 +9,6 @@
   <link rel="stylesheet" href="../css/note.css">
   <!-- 主题 -->
   <link rel="stylesheet" href="../css/atom-one-light.min.css" id="theme">
-  <!-- 笔记 -->
-  <script src="../js/note.js"></script>
   <!-- 高亮 -->
   <script src="../js/highlight.min.js"></script>
   <title>Note Demo</title>
@@ -161,16 +159,17 @@
         </code>
       </pre>
     </div>
-    <h2 class="note_subtitle">Useless Title 1</h2>
-    <h2 class="note_subtitle">Useless Title 2</h2>
-    <h2 class="note_subtitle">Useless Title 3</h2>
-    <h2 class="note_subtitle">Useless Title 4</h2>
-    <h2 class="note_subtitle">Useless Title 5</h2>
-    <h2 class="note_subtitle">Useless Title 6</h2>
-    <h2 class="note_subtitle">Useless Title 7</h2>
-    <h2 class="note_subtitle">Useless Title 8</h2>
-    <h2 class="note_subtitle">Useless Title 9</h2>
-    <h2 class="note_subtitle">Useless Title 10</h2>
+    <h2 class="note_subtitle">1</h2>
+    <h2 class="note_subtitle">2</h2>
+    <h2 class="note_subtitle">3</h2>
+    <h2 class="note_subtitle">4</h2>
+    <h2 class="note_subtitle">5</h2>
+    <h2 class="note_subtitle">6</h2>
+    <h2 class="note_subtitle">7</h2>
+    <h2 class="note_subtitle">8</h2>
+    <h2 class="note_subtitle">9</h2>
+    <h2 class="note_subtitle">10</h2>
+    
     <!-- for 移动端 -->
     <div class="note_footer">
       <div class="note_btn" onclick="lastNote();">← 上一篇</div>
@@ -185,10 +184,10 @@
     <div class="note_btn" title="回到顶部" onclick="scrollToTop();">↑</div>
     <div class="note_btn" title="切换主题" onclick="switchTheme();">🔃</div>
   </div> <!-- 按钮们 -->
-  <script>
-    initMenu();
-    hljs.highlightAll();
+  <script src="../js/note.js">
   </script>
+  <script> initMenu();
+    hljs.highlightAll();</script>
 </body>
 
 </html>

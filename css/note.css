@@ -8,6 +8,12 @@
 }
 
 :root {
+    --info_bd: rgb(68, 138, 255);
+    --info_bg: skyblue;
+    --warning_bd: rgb(255, 182, 98);
+    --warning_bg: rgb(255, 217, 112);
+    --error_bd: red;
+    --error_bg: rgb(255, 100, 100);
     background: var(--bg_color);
     color: var(--fg_color);
     scroll-behavior: smooth;
@@ -39,6 +45,7 @@ body>[class^=note] {
 
 body {
     display: flex;
+    box-sizing: border-box;
 }
 
 body .note_menu,
@@ -153,13 +160,25 @@ math {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--fg_color);
     margin: 20px auto;
     margin-left: -2em;
-    border-left: 15px solid var(--fg_color);
     height: 100px;
 }
-
+.note_info {
+    border: 1px solid var(--info_bd);
+    border-left: 15px solid var(--info_bd);
+    background-color: var(--info_bg);
+}
+.note_warning {
+    border: 1px solid var(--warning_bd);
+    border-left: 15px solid var(--warning_bd);
+    background-color: var(--warning_bg);
+}
+.note_error {
+    border: 1px solid var(--error_bd);
+    border-left: 15px solid var(--error_bd);
+    background-color: var(--error_bg);
+}
 .note_warning_icon,
 .note_info_icon, .note_error_icon {
     flex: 1;
@@ -215,17 +234,18 @@ body .note_bar .note_btn:hover {
     height: 50px;
     border-bottom: 1px solid var(--fg_color);
     line-height: 50px;
-    transition: all .3s;
     padding-left: 2em;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
     white-space: nowrap;
+    transition: all .3s;
 }
 
 .note_menu .note_section:hover {
     background-color: var(--fg_color);
     color: var(--bg_color);
+    padding-left: 4em;
 }
 
 [onclick] {
