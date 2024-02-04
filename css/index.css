@@ -8,7 +8,6 @@ body {
     height: 100vh;
     text-align: center;
     box-sizing: border-box;
-    --direct: 62deg;
     background-color: #fff;
 }
 main.main {
@@ -25,6 +24,7 @@ main.main .part {
 }
 main.main .part:last-child {
     flex-direction: column;
+    padding-left: 0;
 }
 main.main .part:last-child section.sect:nth-of-type(1) {
     flex: 3;
@@ -132,6 +132,9 @@ section.sect::before {
     }
     main.main {
         flex-direction: column-reverse;
+    }
+    main.main .part:nth-of-type(1) {
+        padding-top: 0;
     }
     main.main .part:last-of-type {
         padding-bottom: 0;
