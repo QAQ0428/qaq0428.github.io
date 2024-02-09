@@ -138,6 +138,7 @@ section.sect::before {
     }
     main.main .part:last-of-type {
         padding-bottom: 0;
+        padding-left: 20px;
     }
     .link::after {
         bottom: 0 !important;
