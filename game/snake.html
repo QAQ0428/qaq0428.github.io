@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAQ0428-贪吃蛇小游戏</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: lighter;
+        }
+
+        canvas {
+            background-color: #000;
+            margin-top: 10px;
+        }
+
+        div {
+            display: flex;
+        }
+
+        div button {
+            flex: 1;
+            height: 75px;
+            font-size: 60px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>贪吃蛇小游戏</h1>
+    <hr>
+    <canvas></canvas>
+    <div>
+        <button>←</button>
+        <button>↑</button>
+        <button>↓</button>
+        <button>→</button>
+    </div>
+    <h1>说明</h1>
+    <hr>
+    <p>游戏画布的长宽依据设备长宽来定<br>
+        蛇以3个方块的长度出生在画布最中心<br>
+        蛇在画布上匀速运动, 用键盘WASD键改变蛇的运动方向<br>
+        蛇不能撞到画布边缘, 也不能撞到自己的身体. 灰色方块标记的是蛇头<br>
+        红色方块是食物, 吃了后在蛇尾部追加一个方块<br>
+        移动端可以点击4个按钮来控制蛇的运动<br>
+        请不要随意调整窗口大小<br>
+        <a href="../index.html">作者的首页</a>
+    </p>
+    <script>
+        const clientWidth = document.documentElement.clientWidth
+        const canvas = document.querySelector("canvas")
+        const ctx = canvas.getContext("2d")
+        let canvasWidth = 0
+        let canvasHeight = 0;
+        (function (clientWidth) {
+            const f = function (len) {
+                // 对于 w | 10 的情况
+                if ((len / 10) % 2 == 1) {
+                    return len
+                }
+                else {
+                    return len - 10
+                }
+            }
+            const g = function (len) {
+                if (len % 10 == 0) {
+                    return f(len)
+                }
+                else {
+                    return f(len - (len % 10))
+                }
+            }
+            canvasWidth = g(clientWidth)
+            canvasHeight = g(Math.floor(canvasWidth * 0.4))
+        })(clientWidth)
+        // 10像素一个方块, 开局长度为3的蛇必须居中, 所以宽高 / 10 必须是奇数且宽高是10的倍数
+        canvas.width = canvasWidth
+        canvas.style.width = `${canvasWidth}px`
+        canvas.height = canvasHeight
+        canvas.style.height = `${canvasHeight}px`
+
+        // 初始化结束, 开始游戏逻辑
+        let direct = "right" // 表明蛇的运动方向
+        let lastDirect = "right" // 上次的运动方向
+        const blockSize = 10 // 每个方块固定10px
+        const keyCodeToString = {
+            119: "up",
+            115: "down",
+            97: "left",
+            100: "right"
+        }
+        const oppositeDirect = {
+            left: "right",
+            right: "left",
+            up: "down",
+            down: "up"
+        }
+        const arrowToString = {
+            "→": "right",
+            "←": "left",
+            "↑": "up",
+            "↓": "down"
+        }
+        const snake = [[1, 0], [0, 0], [-1, 0]] // 声明蛇. 蛇是一个二维数组, 每个元素是平面直角坐标系中的蛇身子的点, 第一个是头, 最后一个是尾巴
+        let snakeHead = snake[0]
+
+        const originPoint = [canvasWidth / 2, canvasHeight / 2] // 平面直角坐标系的原点 在最中央
+
+        const edgeX = [(canvasWidth / 10 - 1) / 2 + 1] // 地图的边缘, 用于检测是否超出了边界
+        edgeX.push(-edgeX[0])
+
+        const edgeY = [(canvasHeight / 10 - 1) / 2 + 1] // 地图的边缘, 用于检测是否超出了边界
+        edgeY.push(-edgeY[0])
+
+        function drawRect(x, y, color) {
+            ctx.fillStyle = color
+            ctx.fillRect(originPoint[0] + blockSize * x, originPoint[1] - blockSize * y, blockSize, blockSize)
+        }
+
+        function drawSnake() {
+            // 先清除画布
+            ctx.clearRect(0, 0, 10000, 10000)
+            snake.forEach(element => {
+                drawRect(...element, "#ffffff")
+            });
+            drawRect(...snakeHead, "gray")
+        }
+        function isIn(element, arr) {
+                return arr.indexOf(element) != -1
+            }
+        function isEqualArray(arr1, arr2) {
+            if (arr1.length != arr2.length) {
+                return false
+            }
+            res = true
+            for (let i = 0; i < arr1.length; i++) {
+                res &&= (arr1[i] == arr2[i])
+            }
+            return res
+        }
+        function isAteSelf() {
+            for (let i = 0; i < snake.length; i++) {
+                const point = snake[i];
+                for (let j = 0; j < i && j != i; j++) {
+                    if (isEqualArray(point, snake[j])) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+        function isOut() {
+            return isIn(snakeHead[1], edgeY) || isIn(snakeHead[0], edgeX)
+        }
+        function go(dir) {
+            // dir in ["left", "right", "up", "down"]
+            // 移动的逻辑: 删掉最后一个, 在头前面追加一个
+            if (!isOpposite(direct, lastDirect)) {
+                snake.splice(snake.length - 1, 1)
+                switch (dir) {
+                    case "left":
+                        snake.unshift([snakeHead[0] - 1, snakeHead[1]])
+                        break;
+                    case "right":
+                        snake.unshift([snakeHead[0] + 1, snakeHead[1]])
+                        break;
+                    case "up":
+                        snake.unshift([snakeHead[0], snakeHead[1] + 1])
+                        break;
+                    case "down":
+                        snake.unshift([snakeHead[0], snakeHead[1] - 1])
+                        break
+                    default:
+                        break;
+                }
+                snakeHead = snake[0]
+            }
+            direct = dir
+
+            if (isEqualArray(snakeHead, foodPosition)) {
+                // 吃到食物了
+                foodPosition = randPoint()
+                let newBody = [0, 0] // 这是新加的那个身体
+                // 得到倒数第1, 2节身体用以判断新身体的位置
+                const last1 = snake[snake.length - 1]
+                const last2 = snake[snake.length - 2]
+                function compere(a, b) {
+                    return (a > b) - (a < b)
+                }
+                if (last1[0] == last2[0]) {
+                    // 横坐标相等, 比较纵坐标
+                    newBody = [last1[0], last1[1] + compere(last1[1], last2[1])]
+                }
+                else if (last1[1] == last2[1]) {
+                    // 纵坐标相等, 比较横坐标
+                    newBody = [last1[0] + compere(last1[0], last2[0]), last2[1]]
+                }
+                snake.push(newBody)
+                // 没有else
+            }
+        }
+        function updateStatus() {
+            drawSnake()
+            drawFood()
+            if (isOut() || isAteSelf()) {
+                clearInterval(timer)
+                alert("你输了! 即将为您刷新页面")
+                window.location.reload()
+            }
+        }
+        function randInt(a, b) {
+            // 返回 [a, b] 上的随机整数
+            return Math.floor(Math.random()*(b-a+1)+a)
+        }
+        function randPoint() {
+            // 返回画布上, 除了蛇身子之外的点
+            const minX = edgeX[1] + 1
+            const maxX = edgeX[0] - 1
+            const minY = edgeY[1] + 1
+            const maxY = edgeY[0] - 1
+            const res = [randInt(minX, maxX), randInt(minY, maxY)]
+            for (let i = 0; i < snake.length; i++) {
+                const point = snake[i];
+                if (isEqualArray(point, res)) {
+                    return [randInt(minX, maxX), randInt(minY, maxY)]
+                }
+            }
+            return res
+        }
+        function drawFood() {
+            drawRect(...foodPosition, "#ff0000")
+        }
+        function isOpposite(dir1, dir2) {
+            return dir1 == oppositeDirect[dir2]
+        }
+        function setDirectByArrow(dir) {
+            direct = arrowToString[dir] || direct
+            if (isOpposite(direct, lastDirect)) {
+                direct = lastDirect
+            }
+        }
+        const btns = document.querySelectorAll("button")
+        for (let i = 0; i < btns.length; i++) {
+            const btn = btns[i];
+            btn.addEventListener("click", function() {
+                setDirectByArrow(this.innerText)
+            })
+        }
+        window.addEventListener("keypress", function (e) {
+            direct = keyCodeToString[e.keyCode] || direct // 更新方向变量
+            if (isOpposite(direct, lastDirect)) {
+                direct = lastDirect
+            }
+        })
+        let foodPosition = randPoint() // 食物的位置
+        const timer = setInterval(function () {
+            go(direct)
+            if (!isOpposite(lastDirect, direct)) {
+                lastDirect = direct
+            }
+            updateStatus()
+        }, 300) // 每 0.3 秒 更新
+    </script>
+</body>
+
+</html>
