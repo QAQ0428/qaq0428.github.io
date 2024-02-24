@@ -3,10 +3,6 @@
     padding: 0;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
-
 :root {
     --info_bd: rgb(68, 138, 255);
     --info_bg: skyblue;
@@ -16,9 +12,10 @@
     --error_bg: rgb(255, 100, 100);
     background: var(--bg_color);
     color: var(--fg_color);
-    scroll-behavior: smooth;
 }
-
+::-webkit-scrollbar {
+    display: none;
+}
 /* 不同主题的颜色 */
 :root.note_light {
     --fg_color: #666;
@@ -48,8 +45,7 @@ body {
     box-sizing: border-box;
 }
 
-body .note_menu,
-.note_bar {
+body .note_menu {
     flex: 1;
 }
 
@@ -80,10 +76,6 @@ body .note_main .note_main_body .note_footer {
     font-size: 20px;
 }
 
-/* 数学公式太小了 */
-math {
-    font-size: 30px;
-}
 
 /* 小表情 */
 .note_icon {
@@ -96,12 +88,14 @@ math {
 }
 
 /* 突出强调 */
-.important {
-    font-size: 2em;
-    color: red;
+.important, ::selection {
+    font-size: 1.25em;
     font-weight: 400;
+    background-color: #eee;
+    border-radius: 3px;
+    color: #666;
 }
-
+.important::after, .important::before {content: ' ';}
 /* 类似萌娘百科那样的文字隐藏 */
 .hidden {
     background-color: var(--fg_color);
@@ -142,8 +136,24 @@ math {
     border-color: var(--fg_color);
     width: 100%;
     margin-left: -1em;
+    color: #666;
 }
-
+.note_table thead {
+    background-color: #008c8c;
+    color: #fff;
+}
+.note_table tbody tr:nth-child(odd) {
+    background-color: #eee;
+}
+.note_table tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+.note_table tbody tr td {
+    transition: all .3s;
+}
+.note_table tbody tr td:hover {
+    background-color: #ccc;
+}
 /* 列表 */
 .note_list_item {
     list-style-type: none;
@@ -207,27 +217,35 @@ pre {
 }
 
 body .note_bar {
-    position: fixed !important;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     bottom: 0;
     right: 0;
     height: unset;
+    background-color: #fff;
+    color: #000;
+    border-radius: 10px;
+    transition: all .3s;
+    opacity: 0;
+    box-shadow: -5px 5px 5px gray;
 }
 
 body .note_bar .note_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
-    border: 1px solid var(--fg_color);
-    border-radius: 50%;
     text-align: center;
-    line-height: 50px;
     transition: all .3s;
-    margin: 20px;
+    border-bottom: 1px solid #ccc;
 }
 
 body .note_bar .note_btn:hover {
-    color: var(--bg_color);
-    background-color: rgba(255, 255, 255, .3);
-    backdrop-filter: blur(15px);
+    background-color: rgb(200, 200, 200);
 }
 
 .note_menu .note_section {
@@ -246,10 +264,6 @@ body .note_bar .note_btn:hover {
     background-color: var(--fg_color);
     color: var(--bg_color);
     padding-left: 4em;
-}
-
-[onclick] {
-    cursor: pointer;
 }
 
 /* 屏幕小的就不要侧边栏了, 放下面 */

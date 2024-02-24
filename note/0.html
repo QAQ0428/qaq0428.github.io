@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="../css/note.css">
   <!-- 主题 -->
   <link rel="stylesheet" href="../css/atom-one-light.min.css" id="theme">
-  <!-- 高亮 -->
-  <script src="../js/highlight.min.js"></script>
+  <!-- KaTeX -->
+  <link refer rel="stylesheet" href="../css/katex.min.css">
   <title>Note Demo</title>
 </head>
 
@@ -24,7 +24,7 @@
       <span class="note_time">2023年12月19日 19点07分</span> <!-- 时间 -->
     </div>
     <div class="note_main_body" id="body">
-      <h2 class="note_subtitle">Text & Image Testing</h2>
+      <h2 class="note_subtitle">Text and Image Testing</h2>
             <div class="note_paragraph"><i><span class="hidden"> Every things </span> that <span
             class="important">kills me</span> makes me fell alive.</i>
     </div>
@@ -43,35 +43,9 @@
     </div>
     <h2 class="note_subtitle">Math Testing</h2>
     <div class="note_paragraph">
-      <math xmlns='http://www.w3.org/1998/Math/MathML'>
-        <mi> x </mi>
-        <mo> = </mo>
-        <mfrac>
-          <mrow>
-            <mo> - </mo>
-            <mi> b </mi>
-            <mo> &#x00B1;</mo>
-            <msqrt>
-              <msup>
-                <mrow>
-                  <mi> b </mi>
-                </mrow>
-                <mrow>
-                  <mn> 2 </mn>
-                </mrow>
-              </msup>
-              <mo> - </mo>
-              <mn> 4 </mn>
-              <mi> a </mi>
-              <mi> c </mi>
-            </msqrt>
-          </mrow>
-          <mrow>
-            <mn> 2 </mn>
-            <mi> a </mi>
-          </mrow>
-        </mfrac>
-      </math>
+      $$\forall ax^2+bx+c=0,a\neq0\\
+      x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}\\$$
+      This is a inline math formula. $e^{\pi i} + 1 = 0$ aaaaaa
     </div>
     <h2 class="note_subtitle">Table Testing</h2>
     <div class="note_paragraph">
@@ -110,15 +84,15 @@
     <h2 class="note_subtitle">Tips Testing</h2>
     <div class="note_paragraph">
       <div class="note_warning">
-        <div class="note_warning_icon">&nbsp;</div>
+        <div class="note_warning_icon"></div>
         <div class="note_warning_content">This feature is removed in the new version.</div>
       </div>
       <div class="note_info">
-        <div class="note_info_icon">&nbsp;</div>
+        <div class="note_info_icon"></div>
         <div class="note_info_content">There is another good idea, see https://example.com.</div>
       </div>
       <div class="note_error">
-        <div class="note_error_icon">&nbsp;</div>
+        <div class="note_error_icon"></div>
         <div class="note_error_content">NameError: name 'give_up' is not defined.</div>
       </div>
     </div>
@@ -172,22 +146,30 @@
     
     <!-- for 移动端 -->
     <div class="note_footer">
-      <div class="note_btn" onclick="lastNote();">← 上一篇</div>
-      <div class="note_btn" onclick="switchTheme();">切换主题</div>
-      <div class="note_btn" onclick="nextNote();">下一篇 →</div>
+      <div class="note_btn note_last">← 上一篇</div>
+      <div class="note_btn note_switch_theme">切换主题</div>
+      <div class="note_btn note_next">下一篇 →</div>
     </div>
     </div>
-  </main> <!-- 主体 -->
+  </main> <!-- 主体end -->
+
   <div class="note_bar">
-    <div class="note_btn" title="下一篇" onclick="nextNote();">→</div>
-    <div class="note_btn" title="上一篇" onclick="lastNote();">←</div>
-    <div class="note_btn" title="回到顶部" onclick="scrollToTop();">↑</div>
-    <div class="note_btn" title="切换主题" onclick="switchTheme();">🔃</div>
-  </div> <!-- 按钮们 -->
-  <script src="../js/note.js">
+    <div class="note_btn note_next" title="下一篇">→</div>
+    <div class="note_btn note_last" title="上一篇">←</div>
+    <div class="note_btn note_btt" title="回到顶部">↑</div>
+    <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+  </div> 
+  <!-- ↑按钮们 -->
+  <!-- js  -->
+  <script refer src="../js/note.js">
   </script>
-  <script> initMenu();
-    hljs.highlightAll();</script>
+  <script refer src="../js/katex.min.js"></script>
+  <script refer src="../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+  <!-- 高亮 -->
+  <script refer src="../js/highlight.min.js" onload="hljs.highlightAll()"></script>
 </body>
 
 </html>
