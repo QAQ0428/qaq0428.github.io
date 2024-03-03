@@ -15,15 +15,15 @@
 </head>
 
 <body>
-  <nav class="note_menu" id="menu">
+  <nav class="note_menu">
     <!-- 内容根据标题动态添增 -->
   </nav> <!-- 目录 -->
-  <main class="note_main" id="main">
+  <main class="note_main">
     <div class="note_main_head">
       <h1 class="note_title1">Note Demo</h1> <!-- 大标题 -->
       <span class="note_time">2023年12月19日 19点07分</span> <!-- 时间 -->
     </div>
-    <div class="note_main_body" id="body">
+    <div class="note_main_body">
       <h2 class="note_subtitle">Text and Image Testing</h2>
             <div class="note_paragraph"><i><span class="hidden"> Every things </span> that <span
             class="important">kills me</span> makes me fell alive.</i>
@@ -161,15 +161,15 @@
   </div> 
   <!-- ↑按钮们 -->
   <!-- js  -->
-  <script refer src="../js/note.js">
+  <script src="../js/note.js">
   </script>
-  <script refer src="../js/katex.min.js"></script>
-  <script refer src="../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  <script defer src="../js/katex.min.js"></script>
+  <script defer src="../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
   {left: '$$', right: '$$', display: true},
   {left: '$', right: '$', display: false}
 ]})"></script>
   <!-- 高亮 -->
-  <script refer src="../js/highlight.min.js" onload="hljs.highlightAll()"></script>
+  <script defer src="../js/highlight.min.js" onload="hljs.highlightAll()"></script>
 </body>
 
 </html>

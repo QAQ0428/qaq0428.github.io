@@ -5,11 +5,36 @@ const path = href.split(`${noteIndex}.html`)[0]
 let selectedTheme = 2
 const themes = ["note_light", "note_dark", "note_pink"]
 const mainEle = document.querySelector(".note_main")
-const menuEle = document.querySelector("#menu")
-const themeEle = document.querySelector("#theme");
-const bar = document.querySelector(".note_bar");
+const menuEle = document.querySelector(".note_menu")
+const themeEle = document.querySelector("#theme")
+const bar = document.querySelector(".note_bar")
+const nextUrl = path + (noteIndex + 1) + ".html";
+
 (function () {
-const offset = document.querySelector(".note_main_body").offsetTop
+    let hasNextNote = true
+    const xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 404) {
+                hasNextNote = false
+            } else {
+                hasNextNote = true
+            }
+        }
+    }
+    function nextNote(){
+        if (hasNextNote) {
+            window.location.href = nextUrl
+        }
+        else {
+            alert("没有下一篇啦!")
+        }
+    }
+    
+    xhr.open("GET", nextUrl, true)
+    xhr.send()
+    const domian = window.location.origin
+    const offset = document.querySelector(".note_main_body").offsetTop
     function getSections() {
         return document.querySelectorAll(".note_subtitle")
     }
@@ -20,7 +45,7 @@ const offset = document.querySelector(".note_main_body").offsetTop
             const id = content.replaceAll(" ", "")
             sections[i].id = id
             sections[i].addEventListener("click", () => {
-                navigator.clipboard.writeText(href + "#" + sections[i].id)
+                navigator.clipboard.writeText(encodeURI(href + "#" + sections[i].id))
             })
             const sect = document.createElement("div")
             sect.classList.add("note_section")
@@ -45,43 +70,46 @@ const offset = document.querySelector(".note_main_body").offsetTop
         window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
     }
     function lastNote() {
-        window.location.href = path + (noteIndex - 1) + ".html"
-    }
-    function nextNote() {
-        window.location.href = path + (noteIndex + 1) + ".html"
+        if (noteIndex == 0) {
+            alert("没有上一篇了!")
+        }
+        else {
+            window.location.href = path + (noteIndex - 1) + ".html"
+        }
     }
     function switchTheme() {
         selectedTheme = selectedTheme === 0 ? (themes.length - 1) : selectedTheme - 1
         document.documentElement.className = themes[selectedTheme]
-        themeEle.href = selectedTheme === 1 ? "../css/atom-one-dark.min.css" : "../css/atom-one-light.min.css"
+        themeEle.href = selectedTheme === 1 ? (domian + "/css/atom-one-dark.min.css") : (domian + "/css/atom-one-light.min.css")
+    }
+    function processElements(selecter, func) {
+        const elements = document.querySelectorAll(selecter)
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            func(element)
+        }
     }
     initMenu()
-    const classNames = ["last", "next", "switch_theme", "btt"]
-    for (let i = 0; i < classNames.length; i++) {
-        const clsName = classNames[i];
-        const btns = document.querySelectorAll(".note_" + clsName)
-        for (let j = 0; j < btns.length; j++) {
-            const btn = btns[j];
-            btn.addEventListener("click", [lastNote, nextNote, switchTheme, scrollToTop][i])
+    const processes = {
+        ".note_last": (element) => element.addEventListener("click", lastNote),
+        ".note_next": (element) => element.addEventListener("click", nextNote),
+        ".note_switch_theme": (element) => element.addEventListener("click", switchTheme),
+        ".note_btt": (element) => element.addEventListener("click", scrollToTop),
+        "code": (element) => element.addEventListener("click", () => navigator.clipboard.writeText(element.innerText)),
+        "i.note_icon": (element) => {
+            element.innerHTML = "&nbsp;&nbsp;&nbsp;"
+            element.style.backgroundImage = `url(${element.dataset["emojiurl"]})`
+    }
+    }
+    for (const key in processes) {
+        if (Object.hasOwnProperty.call(processes, key)) {
+            processElements(key, processes[key])
         }
     }
 
-
-    const codeblocks = document.querySelectorAll("code")
-    for (let i = 0; i < codeblocks.length; i++) {
-        const ele = codeblocks[i];
-        ele.addEventListener("click", () => {
-            navigator.clipboard.writeText(ele.innerText)
-        })
-    }
-
-    const icons = document.querySelectorAll("i.note_icon")
-    for (let i = 0; i < icons.length; i++) {
-        const ele = icons[i];
-        ele.innerHTML = "&nbsp;&nbsp;&nbsp;"
-    }
     mainEle.addEventListener("scroll", () => {
         const st = mainEle.scrollTop
         bar.style.opacity = +(st > offset)
     })
+
 })()

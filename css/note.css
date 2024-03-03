@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -12,9 +13,6 @@
     --error_bg: rgb(255, 100, 100);
     background: var(--bg_color);
     color: var(--fg_color);
-}
-::-webkit-scrollbar {
-    display: none;
 }
 /* 不同主题的颜色 */
 :root.note_light {
@@ -42,13 +40,21 @@ body>[class^=note] {
 
 body {
     display: flex;
-    box-sizing: border-box;
 }
 
 body .note_menu {
-    flex: 1;
+    flex: 0.75;
 }
-
+body .note_menu::-webkit-scrollbar, .note_main::-webkit-scrollbar, code::-webkit-scrollbar {
+    width: 7px;
+    background-color: #eee;
+}
+code::-webkit-scrollbar {
+    height: 7px;
+}
+body .note_menu::-webkit-scrollbar-thumb, .note_main::-webkit-scrollbar-thumb, code::-webkit-scrollbar-thumb {
+    background-color: gray;
+}
 body .note_main {
     flex: 3;
     border: 1px solid var(--fg_color);
@@ -91,9 +97,9 @@ body .note_main .note_main_body .note_footer {
 .important, ::selection {
     font-size: 1.25em;
     font-weight: 400;
-    background-color: #eee;
+    background-color: var(--fg_color);
     border-radius: 3px;
-    color: #666;
+    color: var(--bg_color);
 }
 .important::after, .important::before {content: ' ';}
 /* 类似萌娘百科那样的文字隐藏 */
@@ -109,7 +115,7 @@ body .note_main .note_main_body .note_footer {
 
 /* 超链接 */
 .note_link {
-    color: skyblue;
+    color: var(--fg_color);
     text-decoration: underline;
 }
 
@@ -225,7 +231,7 @@ body .note_bar {
     bottom: 0;
     right: 0;
     height: unset;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255, .6);
     color: #000;
     border-radius: 10px;
     transition: all .3s;
@@ -245,24 +251,32 @@ body .note_bar .note_btn {
 }
 
 body .note_bar .note_btn:hover {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(255, 255, 255);
 }
 
 .note_menu .note_section {
     height: 50px;
-    border-bottom: 1px solid var(--fg_color);
+    border-bottom: 1px solid var(--bg_color);
+    background-color: var(--fg_color);
+    color: var(--bg_color);
     line-height: 50px;
     padding-left: 2em;
+    transition: all .3s;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     word-break: break-all;
     white-space: nowrap;
-    transition: all .3s;
+}
+.note_menu .note_section::-webkit-scrollbar, 
+:root::-webkit-scrollbar,
+.note_bar::-webkit-scrollbar {
+    display: none;
 }
 
 .note_menu .note_section:hover {
-    background-color: var(--fg_color);
-    color: var(--bg_color);
+    background-color: var(--bg_color);
+    color: var(--fg_color);
     padding-left: 4em;
 }
 
