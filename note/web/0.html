@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="note_pink">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/note.css">
+  <link rel="stylesheet" href="../../css/atom-one-light.min.css" id="theme">
+  <link rel="stylesheet" href="../../css/katex.min.css">
+  <title>我应该如何编辑笔记页面</title>
+</head>
+
+<body>
+  <nav class="note_menu">
+  </nav> 
+  <main class="note_main">
+    <div class="note_main_head">
+      <h1 class="note_title1">我应该如何编辑笔记页面</h1>
+      <span class="note_time">2024年2月25日 17点32分</span>
+    </div>
+    <div class="note_main_body">
+        <h2 class="note_subtitle">前言</h2>
+        <div class="note_paragraph">这个页面纯属是给我自己看的. 由于我用电脑的时间不多, 所以没办法记住我规定的一些元素的HTML结构, 类名之类的东西. 于是先创建一个这个页面, 免得以后我想新增笔记的时候不知道该怎么写. </div>
+        <h2 class="note_subtitle">笔记页面的结构</h2>
+        <div class="note_paragraph">所有笔记页面共有的部分如下: </div>
+        <div class="note_paragraph"><pre class="note_codeblock"><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-cn&quot; class=&quot;note_pink&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;link rel=&quot;shortcut icon&quot; href=&quot;../../favicon.ico&quot; type=&quot;image/x-icon&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/note.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/atom-one-light.min.css&quot; id=&quot;theme&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/katex.min.css&quot;&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;nav class=&quot;note_menu&quot;&gt;
+  &lt;/nav&gt; 
+  &lt;main class=&quot;note_main&quot;&gt;
+    &lt;div class=&quot;note_main_head&quot;&gt;
+      &lt;h1 class=&quot;note_title1&quot;&gt;&lt;/h1&gt;
+      &lt;span class=&quot;note_time&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;note_main_body&quot;&gt;
+        
+    &lt;/div&gt;
+  &lt;/main&gt;
+
+  &lt;div class=&quot;note_bar&quot;&gt;
+    &lt;div class=&quot;note_btn note_next&quot; title=&quot;下一篇&quot;&gt;→&lt;/div&gt;
+    &lt;div class=&quot;note_btn note_last&quot; title=&quot;上一篇&quot;&gt;←&lt;/div&gt;
+    &lt;div class=&quot;note_btn note_btt&quot; title=&quot;回到顶部&quot;&gt;↑&lt;/div&gt;
+    &lt;div class=&quot;note_btn note_switch_theme&quot; title=&quot;切换主题&quot;&gt;🔃&lt;/div&gt;
+  &lt;/div&gt; 
+  &lt;script defer src=&quot;../../js/note.js&quot;&gt;
+  &lt;/script&gt;
+  &lt;script defer src=&quot;../../js/katex.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script defer src=&quot;../../js/auto-render.min.js&quot; onload=&quot;renderMathInElement(document.body, {delimiters: [
+  {left: &#x27;$$&#x27;, right: &#x27;$$&#x27;, display: true},
+  {left: &#x27;$&#x27;, right: &#x27;$&#x27;, display: false}
+]})&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;../../js/highlight.min.js&quot; onload=&quot;hljs.highlightAll()&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre></div>
+        <div class="note_paragraph">
+            笔记的标题写在.note_title1和title元素里. 
+            笔记撰写的时间写在span.note_time元素里. 所有的内容都写在.note_main_body里.
+        </div>
+        <h2 class="note_subtitle">各种类名的用法</h2>
+        <div class="note_paragraph">
+          在.note_main_body内, 直接用h2.note_subtitle包裹一个标题, 用.note_paragraph包裹一个段落.一个段落前有2个全角字符宽度的缩进.
+        </div>
+        <div class="note_paragraph">
+          用span.important包裹的文字, 前景色与背景色相反.  用span.hidden包裹的文字, 背景色变成前景色, 鼠标悬停时前景色变成背景色. 超链接用a.note_link包裹. 小表情用i.note_icon, 并设置data-emojiurl="表情地址".表格使用<a href="https://tableconvert.com/zh-cn/html-generator" class="note_link">https://tableconvert.com/zh-cn/html-generator</a>来编辑, 只需给table标签附上class="note_table" 和 border="1", 数学公式用LaTeX语法写在2个美元符号中间(行内). 块级的写在4个美元符号中间. 图片使用.note_image>image.note_image_content[src="图片地址"]+.note_image_des{图片的描述}. 列表用ul.note_list>li.note_list_item{内容}. 用.note_info>.note_info_icon+.note_info_content{内容} 描述一个"信息"卡片, 类名中的"info"也可替换成"warning"或"error". 用pre.note_codeblock>code{代码}来标记一个代码片段. 
+        </div>
+        <div class="note_paragraph">目前就这么多, 看以后会不会新增啦! <i class="note_icon" data-emojiurl="../../images/tieba_emoji_22.png"></i></div>
+    </div>
+  </main>
+
+  <div class="note_bar">
+    <div class="note_btn note_next" title="下一篇">→</div>
+    <div class="note_btn note_last" title="上一篇">←</div>
+    <div class="note_btn note_btt" title="回到顶部">↑</div>
+    <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+  </div> 
+  <script src="../../js/note.js">
+  </script>
+  <script defer src="../../js/katex.min.js"></script>
+  <script defer src="../../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+  <script defer src="../../js/highlight.min.js" onload="hljs.highlightAll()"></script>
+</body>
+
+</html>
