@@ -47,7 +47,11 @@
       &lt;span class=&quot;note_time&quot;&gt;&lt;/span&gt;
     &lt;/div&gt;
     &lt;div class=&quot;note_main_body&quot;&gt;
-        
+      &lt;div class=&quot;note_footer&quot;&gt;
+        &lt;div class=&quot;note_btn note_last&quot;&gt;← 上一篇&lt;/div&gt;
+        &lt;div class=&quot;note_btn note_switch_theme&quot;&gt;切换主题&lt;/div&gt;
+        &lt;div class=&quot;note_btn note_next&quot;&gt;下一篇 →&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/main&gt;
 
@@ -80,6 +84,11 @@
           用span.important包裹的文字, 前景色与背景色相反.  用span.hidden包裹的文字, 背景色变成前景色, 鼠标悬停时前景色变成背景色. 超链接用a.note_link包裹. 小表情用i.note_icon, 并设置data-emojiurl="表情地址".表格使用<a href="https://tableconvert.com/zh-cn/html-generator" class="note_link">https://tableconvert.com/zh-cn/html-generator</a>来编辑, 只需给table标签附上class="note_table" 和 border="1", 数学公式用LaTeX语法写在2个美元符号中间(行内). 块级的写在4个美元符号中间. 图片使用.note_image>image.note_image_content[src="图片地址"]+.note_image_des{图片的描述}. 列表用ul.note_list>li.note_list_item{内容}. 用.note_info>.note_info_icon+.note_info_content{内容} 描述一个"信息"卡片, 类名中的"info"也可替换成"warning"或"error". 用pre.note_codeblock>code{代码}来标记一个代码片段. 
         </div>
         <div class="note_paragraph">目前就这么多, 看以后会不会新增啦! <i class="note_icon" data-emojiurl="../../images/tieba_emoji_22.png"></i></div>
+        <div class="note_footer">
+          <div class="note_btn note_last">← 上一篇</div>
+          <div class="note_btn note_switch_theme">切换主题</div>
+          <div class="note_btn note_next">下一篇 →</div>
+        </div>
     </div>
   </main>
 
