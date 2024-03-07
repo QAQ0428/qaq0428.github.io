@@ -58,7 +58,6 @@ const nextUrl = path + (noteIndex + 1) + ".html";
     }
     function scrollToTop() {
         mainEle.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
-        window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
     }
     function scrollToAnElement(id) {
         mainEle.scrollTo(
