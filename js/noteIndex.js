@@ -62,7 +62,7 @@ tablist.addEventListener("mouseenter", function (e) {
         tablistPointer.style.width = textEle.offsetWidth + "px"
         promptEle.innerText = `总共有${allNotes[selected].length}篇`
     }
-    
+
     renderNotes(selected)
 }, true)
 window.addEventListener("resize", () => {
@@ -72,7 +72,7 @@ function renderNote(note) {
     if (note === "" || note.status === 404) {
         return ""
     }
-    
+
     return ` <div class="ni_note" onclick="window.open('${note.url}', '_blank')">
     <div class="ni_note_index flex_center_both">
         <div class="flex_center_both">${note.index}</div>
@@ -84,20 +84,27 @@ function renderNote(note) {
 </div>`
 }
 function renderNotes(type) {
-    noteList.innerHTML = allNotes[type].reduce((a, b) => renderNote(a) + renderNote(b), "")
+    // noteList.innerHTML = allNotes[type].reduce((a, b) => renderNote(a) + renderNote(b), "")
+    let html = ""
+    const notes = allNotes[type]
+    for (let i = 0; i < notes.length; i++) {
+        const note = notes[i];
+        html += renderNote(note)
+    }
+    noteList.innerHTML = html
 }
-(function(){
+(function () {
     // load notes
     function f(start, type) {
         const note = new Note(type, start)
-            note.init((nt) => {
-                if (nt.status === 200) {
-                    f(start + 1)
-                }
-                else {
-                    return
-                }
-            })
+        note.init((nt) => {
+            if (nt.status === 200) {
+                f(start + 1, type)
+            }
+            else {
+                return
+            }
+        })
     }
     for (const key in allNotes) {
         f(0, key)
