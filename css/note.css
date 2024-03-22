@@ -36,6 +36,7 @@ body>[class^=note] {
     overflow-y: scroll;
     word-wrap: break-word;
     word-break: break-all;
+    text-overflow: clip;
 }
 
 body {
@@ -45,14 +46,14 @@ body {
 body .note_menu {
     flex: 0.75;
 }
-body .note_menu::-webkit-scrollbar, .note_main::-webkit-scrollbar, code::-webkit-scrollbar {
+.note_menu::-webkit-scrollbar, .katex-display::-webkit-scrollbar,.note_main::-webkit-scrollbar, code::-webkit-scrollbar {
     width: 7px;
     background-color: #eee;
 }
-code::-webkit-scrollbar {
+code::-webkit-scrollbar,.note_main::-webkit-scrollbar, .katex-display::-webkit-scrollbar{
     height: 7px;
 }
-body .note_menu::-webkit-scrollbar-thumb, .note_main::-webkit-scrollbar-thumb, code::-webkit-scrollbar-thumb {
+body .note_menu::-webkit-scrollbar-thumb, .note_main::-webkit-scrollbar-thumb, code::-webkit-scrollbar-thumb, .katex-display::-webkit-scrollbar-thumb{
     background-color: gray;
 }
 body .note_main {
@@ -69,6 +70,9 @@ body .note_main .note_main_head {
 /* 为了js滚动 */
 body .note_main .note_main_body {
     position: relative;
+}
+.note_main_body {
+    min-height: 125vh;
 }
 
 /* PC端隐藏 */
@@ -124,6 +128,7 @@ body .note_main .note_main_body .note_footer {
     text-align: center;
     margin: 20px auto;
     margin-left: -4em;
+    max-width: 80%;
 }
 
 .note_image_des {
@@ -305,4 +310,8 @@ body .note_bar .note_btn:hover {
     .note_footer .note_btn:last-child {
         text-align: right;
     }
+}
+/* 处理移动端公式显示不全的问题 */
+.katex-display {
+    overflow: auto;
 }
