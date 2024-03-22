@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="note_pink">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/note.css">
+  <link rel="stylesheet" href="../../css/atom-one-light.min.css" id="theme">
+  <link rel="stylesheet" href="../../css/katex.min.css">
+  <title>JS [a, b]的随机整数</title>
+</head>
+
+<body>
+  <nav class="note_menu">
+  </nav> 
+  <main class="note_main">
+    <div class="note_main_head">
+      <h1 class="note_title1">JS [a, b]的随机整数</h1>
+      <span class="note_time">2024年3月22日 22点56分</span>
+    </div>
+    <div class="note_main_body">
+        <h2 class="note_subtitle">场景</h2>
+        <div class="note_paragraph">在前端开发中, 有许多用到随机数的场景. 但是JS中的随机数函数Math.random返回的是0-1的随机浮点数. 因此我们需要做一些运算(非常简单的).</div>
+        <h2 class="note_subtitle">思路</h2>
+        <div class="note_paragraph">想要实现[a, b]间的随机整数, 其实就是一个简单的数学问题: 已知$x\in\left[ 0, 1 \right)$, 想要变形得到一个$f\left(x\right)\in[a, b]\cap\Z$.</div>
+        <h2 class="note_subtitle">过程</h2>
+        <div class="note_paragraph">
+            $$
+            x = \operatorname{Math.random}\left(\right)\\
+            0 \leq x < 1
+            $$
+            同时$\times \left(b - a + 1\right)$, 就得到
+            $$0 \leq \left(b - a + 1\right)x < b - a + 1$$
+            同时+a就得到
+            $$a \leq \left(b - a + 1\right)x + a< b + 1$$
+            因为想要得到一个整数, 所以对$\left(b - a + 1\right)x + a$进行向下取整.
+            最终, $\lfloor\left(b - a + 1\right)x + a\rfloor\in\left[a, b\right]\cap\Z$
+        
+        </div>
+        <h2 class="note_subtitle">JS代码</h2>
+        <div class="note_paragraph">
+            <pre class="note_codeblock">
+                <code>const randInt = (a, b) => Math.floor((b - a + 1) * Math.random() + a)</code>
+            </pre>
+        </div>
+      <div class="note_footer">
+        <div class="note_btn note_last">← 上一篇</div>
+        <div class="note_btn note_switch_theme">切换主题</div>
+        <div class="note_btn note_next">下一篇 →</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="note_bar">
+    <div class="note_btn note_next" title="下一篇">→</div>
+    <div class="note_btn note_last" title="上一篇">←</div>
+    <div class="note_btn note_btt" title="回到顶部">↑</div>
+    <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+  </div> 
+  <script defer src="../../js/note.js">
+  </script>
+  <script defer src="../../js/katex.min.js"></script>
+  <script defer src="../../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+  <script src="../../js/highlight.min.js" onload="hljs.highlightAll()"></script>
+</body>
+
+</html>
