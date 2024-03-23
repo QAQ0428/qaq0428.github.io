@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/note.css">
+  <link rel="stylesheet" href="../../css/atom-one-light.min.css" id="theme">
+  <link rel="stylesheet" href="../../css/katex.min.css">
+  <title>复数的平方根</title>
+</head>
+
+<body>
+    $\gdef\i{\mathrm{i}}$
+  <nav class="note_menu">
+  </nav> 
+  <main class="note_main">
+    <div class="note_main_head">
+      <h1 class="note_title1">复数的平方根</h1>
+      <span class="note_time">2024年3月23日 21点00分</span>
+    </div>
+    <div class="note_main_body">
+        <h2 class="note_subtitle">问题</h2>
+        <div class="note_paragraph">
+            已知一个复数$a+b\i$, 求$\sqrt{a+b\i}$
+        </div>
+        <h2 class="note_subtitle">过程</h2>
+        <div class="note_paragraph">
+            $$
+            \begin{array}{l}
+                \begin{aligned}
+                设\sqrt{a+b\mathrm{i}} &= x + y\i\qquad(x,y\in\R)\\
+                则a + b\i &= (x^2-y^2)+(2xy\i)\end{aligned}\\
+                所以\left\{
+                \begin{array}{l}
+                    x^2-y^2 = a&①\\
+                    2xy = b&②
+                \end{array}\right. \\
+                ②\Rightarrow y=\frac{b}{2x}\\
+                代入①得\\
+                \begin{aligned}
+                x^2-(\frac{b}{2x})^2&=a\\ 
+                x^2-\frac{b^2}{4x^2}&=a\\
+                \frac{4x^4}{4x^2}-\frac{b^2}{4x^2}&=a\\
+                \frac{4x^4-b^2}{4x^2}&=a\\
+                4ax^2&=4x^4-b^2\\
+                \end{aligned}\\
+                令t=x^2, 方程化为\\
+                \begin{aligned}
+                    4at&=4t^2-b^2\\
+                    -4t^2+4at+b^2&=0\\
+                    t&=\frac{-4a\pm\sqrt{16a^2+16b^2}}{-8}\\
+                    &=\frac{-4a\pm\sqrt{16\left(a^2+b^2\right)}}{-8}\\
+                    &=\frac{-4a\pm4\sqrt{a^2+b^2}}{-8}\\
+                    &=\frac{1}{2}a\pm\frac{1}{2}\sqrt{a^2+b^2}\\
+                    所以x&=\pm\sqrt{\frac{1}{2}a\pm\frac{1}{2}\sqrt{a^2+b^2}}\\
+                    y&=\frac{b}{2x}
+                \end{aligned}\\
+                于是, \sqrt{a+b\i} = \pm\sqrt{\frac{1}{2}a\pm\frac{1}{2}\sqrt{a^2+b^2}} + \frac{b}{\pm2\sqrt{\frac{1}{2}a\pm\frac{1}{2}\sqrt{a^2+b^2}}}\i\\
+                ​​​
+            \end{array}
+            $$
+            
+        </div>
+        <h2 class="note_subtitle">测试</h2>
+            <div class="note_paragraph">
+                从上面的过程可以看出来, $\sqrt{a+b\i}$是有4个值的. 然而二次方程最多只有2个复数根. 并且虚部的分母可能为0. 现在, 我们代入几个具体的值来看看到底是怎么回事. 当$a=0$, $b=1$时, $\sqrt{a+b\i}$的实部如下
+                <table class="note_table"><thead><tr><th>正正</th><th>正负</th><th>负正</th><th>负负</th></tr></thead><tbody><tr><td>$\frac{\sqrt{2}}{2}$</td><td>$\frac{\sqrt{2}}{2}\i$</td><td>$-\frac{\sqrt{2}}{2}$</td><td>$-\frac{\sqrt{2}}{2}\i$</td></tr></tbody></table>
+                由此可见, 当第二个正负号取负的时候, 使实部为一个虚数, 所以舍去.
+                现在, $\sqrt{a+b\i} = \pm\sqrt{\frac{1}{2}a+\frac{1}{2}\sqrt{a^2+b^2}} + \frac{b}{\pm2\sqrt{\frac{1}{2}a+\frac{1}{2}\sqrt{a^2+b^2}}}\i$
+            </div>
+            <div class="note_paragraph">
+                第二个问题, 虚部分母为0:
+                $$
+                \begin{aligned}
+                令\pm2\sqrt{\frac{1}{2}a+\frac{1}{2}\sqrt{a^2+b^2}}&=0\\
+                那么\frac{1}{2}a+\frac{1}{2}\sqrt{a^2+b^2}&=0\\
+                \frac{1}{2}\left(a+\sqrt{a^2+b^2}\right)&=0\\
+                a+\sqrt{a^2+b^2}&=0\\
+                \sqrt{a^2+b^2}&=-a\\
+                a^2 + b^2&=a^2\\
+                b^2&=0\\
+                b&=0
+                \end{aligned}
+                $$
+                因此, 虚部分母为0(不存在)时, 被开方数的虚部为0, 所以它是一个实数.平方根当然没有虚部. 这很合理
+            </div>
+      <div class="note_footer">
+        <div class="note_btn note_last">← 上一篇</div>
+        <div class="note_btn note_switch_theme">切换主题</div>
+        <div class="note_btn note_next">下一篇 →</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="note_bar">
+    <div class="note_btn note_next" title="下一篇">→</div>
+    <div class="note_btn note_last" title="上一篇">←</div>
+    <div class="note_btn note_btt" title="回到顶部">↑</div>
+    <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+  </div> 
+  <script defer src="../../js/note.js">
+  </script>
+  <script defer src="../../js/katex.min.js"></script>
+  <script defer src="../../js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+  <script src="../../js/highlight.min.js" onload="hljs.highlightAll()"></script>
+</body>
+
+</html>
