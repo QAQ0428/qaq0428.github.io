@@ -1,16 +1,21 @@
-const href = window.location.href
-const fileName = href.substring(href.lastIndexOf("/") + 1)
-const noteIndex = +fileName.split(".")[0]
-const path = href.split(`${noteIndex}.html`)[0]
-let selectedTheme = 2
-const themes = ["note_light", "note_dark", "note_pink"]
-const mainEle = document.querySelector(".note_main")
-const menuEle = document.querySelector(".note_menu")
-const themeEle = document.querySelector("#theme")
-const bar = document.querySelector(".note_bar")
-const nextUrl = path + (noteIndex + 1) + ".html";
 
-(function () {
+!function () {
+    const href = window.location.href
+    const domian = window.location.origin
+    const themeEle = document.querySelector("#theme")
+    const fileName = href.substring(href.lastIndexOf("/") + 1)
+    const noteIndex = +fileName.split(".")[0]
+    const path = href.split(`${noteIndex}.html`)[0]
+    const themes = ["note_light", "note_dark", "note_pink"]
+    let selectedTheme = 2
+    if ((selectedTheme = +localStorage.getItem("selectedNoteTheme")) === void 0) {
+        selectedTheme = 2
+    }
+    setTheme(selectedTheme)
+    const mainEle = document.querySelector(".note_main")
+    const menuEle = document.querySelector(".note_menu")
+    const bar = document.querySelector(".note_bar")
+    const nextUrl = path + (noteIndex + 1) + ".html";
     let hasNextNote = true
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
@@ -22,7 +27,7 @@ const nextUrl = path + (noteIndex + 1) + ".html";
             }
         }
     }
-    function nextNote(){
+    function nextNote() {
         if (hasNextNote) {
             window.location.href = nextUrl
         }
@@ -30,10 +35,9 @@ const nextUrl = path + (noteIndex + 1) + ".html";
             alert("没有下一篇啦!")
         }
     }
-    
+
     xhr.open("GET", nextUrl, true)
     xhr.send()
-    const domian = window.location.origin
     const offset = document.querySelector(".note_main_body").offsetTop
     function getSections() {
         return document.querySelectorAll(".note_subtitle")
@@ -76,10 +80,15 @@ const nextUrl = path + (noteIndex + 1) + ".html";
             window.location.href = path + (noteIndex - 1) + ".html"
         }
     }
+    function setTheme(index) {
+        document.documentElement.setAttribute("class", themes[index])
+        themeEle.href = index === 1 ? (domian + "/css/atom-one-dark.min.css") : (domian + "/css/atom-one-light.min.css")
+    }
     function switchTheme() {
         selectedTheme = selectedTheme === 0 ? (themes.length - 1) : selectedTheme - 1
-        document.documentElement.className = themes[selectedTheme]
-        themeEle.href = selectedTheme === 1 ? (domian + "/css/atom-one-dark.min.css") : (domian + "/css/atom-one-light.min.css")
+        localStorage.setItem("selectedNoteTheme", selectedTheme)
+        console.log(selectedTheme, localStorage.getItem("selectedNoteTheme"));
+        setTheme(selectedTheme)
     }
     function processElements(selecter, func) {
         const elements = document.querySelectorAll(selecter)
@@ -98,7 +107,7 @@ const nextUrl = path + (noteIndex + 1) + ".html";
         "i.note_icon": (element) => {
             element.innerHTML = "&nbsp;&nbsp;&nbsp;"
             element.style.backgroundImage = `url(${element.dataset["emojiurl"]})`
-    }
+        }
     }
     for (const key in processes) {
         if (Object.hasOwnProperty.call(processes, key)) {
@@ -111,4 +120,4 @@ const nextUrl = path + (noteIndex + 1) + ".html";
         bar.style.opacity = +(st > offset)
     })
 
-})()
+}()
