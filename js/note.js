@@ -2,13 +2,15 @@
 !function () {
     const href = window.location.href
     const domian = window.location.origin
-    const themeEle = document.querySelector("#theme")
+    const themeEle = document.querySelector("#theme") || {}
     const fileName = href.substring(href.lastIndexOf("/") + 1)
     const noteIndex = +fileName.split(".")[0]
     const path = href.split(`${noteIndex}.html`)[0]
+    let type = href.split("/")
+    type = type[type.length - 2]
     const themes = ["note_light", "note_dark", "note_pink"]
     let selectedTheme = 2
-    if ((selectedTheme = +localStorage.getItem("selectedNoteTheme")) === void 0) {
+    if ((selectedTheme = localStorage.getItem("selectedNoteTheme")) === void 0) {
         selectedTheme = 2
     }
     setTheme(selectedTheme)
@@ -87,7 +89,6 @@
     function switchTheme() {
         selectedTheme = selectedTheme === 0 ? (themes.length - 1) : selectedTheme - 1
         localStorage.setItem("selectedNoteTheme", selectedTheme)
-        console.log(selectedTheme, localStorage.getItem("selectedNoteTheme"));
         setTheme(selectedTheme)
     }
     function processElements(selecter, func) {
