@@ -41,26 +41,43 @@ const textToNoteType = {
     前端: "web",
     数学: "math",
     Python: "python",
-    非技术性的: "non-technical"
+    非技术性的: "non-technical",
+    其它: "other"
 }
 let allNotes = {
     math: [],
     web: [],
     python: [],
-    "non-technical": []
-}
+    "non-technical": [],
+    other: []
+};
+(function () {
+    // load notes
+    function f(start, type) {
+        const note = new Note(type, start)
+        note.init((nt) => {
+            if (nt.status === 200) {
+                f(start + 1, type)
+            }
+            else {
+                return
+            }
+        })
+    }
+    for (const key in allNotes) {
+        f(0, key)
+    }
+})()
 let selected = "math"
-tablistPointer.style.bottom = firstItem.offsetTop + "px"
-tablistPointer.style.left = firstItem.offsetLeft + "px"
 let textEle
+// renderNotes("math")
 tablist.addEventListener("mouseenter", function (e) {
     const target = e.target
     if (target.classList.contains("ni_tablist_item")) {
         textEle = target.children[0]
         selected = textToNoteType[textEle.innerText]
-        tablistPointer.style.left = textEle.offsetLeft + "px"
-        tablistPointer.style.width = textEle.offsetWidth + "px"
-        promptEle.innerText = `总共有${allNotes[selected].length}篇`
+        tablistPointer.style.left = target.offsetLeft + "px"
+        promptEle.innerText = `此分类下有${allNotes[selected].length}篇`
     }
 
     renderNotes(selected)
@@ -84,7 +101,6 @@ function renderNote(note) {
 </div>`
 }
 function renderNotes(type) {
-    // noteList.innerHTML = allNotes[type].reduce((a, b) => renderNote(a) + renderNote(b), "")
     let html = ""
     const notes = allNotes[type]
     for (let i = 0; i < notes.length; i++) {
@@ -93,20 +109,3 @@ function renderNotes(type) {
     }
     noteList.innerHTML = html
 }
-(function () {
-    // load notes
-    function f(start, type) {
-        const note = new Note(type, start)
-        note.init((nt) => {
-            if (nt.status === 200) {
-                f(start + 1, type)
-            }
-            else {
-                return
-            }
-        })
-    }
-    for (const key in allNotes) {
-        f(0, key)
-    }
-})()
