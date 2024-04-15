@@ -9,58 +9,31 @@
     let type = href.split("/")
     type = type[type.length - 2]
     const themes = ["note_light", "note_dark", "note_pink"]
-    let selectedTheme = 2
-    if ((selectedTheme = localStorage.getItem("selectedNoteTheme")) === void 0) {
-        selectedTheme = 2
-    }
-    setTheme(selectedTheme)
+    let selectedTheme = +localStorage.getItem("selectedNoteTheme") || 2
     const mainEle = document.querySelector(".note_main")
     const menuEle = document.querySelector(".note_menu")
     const bar = document.querySelector(".note_bar")
     const nextUrl = path + (noteIndex + 1) + ".html";
-    let hasNextNote = true
     const xhr = new XMLHttpRequest()
+    setTheme(selectedTheme)
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
+            const nextbtns = document.querySelectorAll(".note_next")
             if (xhr.status === 404) {
-                hasNextNote = false
+                nextbtns.forEach(btn => btn.addEventListener("click", () => alert("没有下一篇啦!")))
+
             } else {
-                hasNextNote = true
+                nextbtns.forEach(btn => btn.addEventListener("click", () => { window.location.href = nextUrl }))
             }
-        }
-    }
-    function nextNote() {
-        if (hasNextNote) {
-            window.location.href = nextUrl
-        }
-        else {
-            alert("没有下一篇啦!")
         }
     }
 
     xhr.open("GET", nextUrl, true)
     xhr.send()
     const offset = document.querySelector(".note_main_body").offsetTop
-    function getSections() {
-        return document.querySelectorAll(".note_subtitle")
-    }
-    function initMenu() {
-        const sections = getSections()
-        for (let i = 0; i < sections.length; i++) {
-            const content = sections[i].textContent
-            const id = content.replaceAll(" ", "")
-            sections[i].id = id
-            sections[i].addEventListener("click", () => {
-                navigator.clipboard.writeText(encodeURI(href + "#" + sections[i].id))
-            })
-            const sect = document.createElement("div")
-            sect.classList.add("note_section")
-            sect.innerText = content
-            sect.addEventListener("click", () => {
-                scrollToAnElement(id)
-            })
-            menuEle.appendChild(sect)
-        }
+    
+    function level(titleElement) {
+        return +titleElement.tagName[1]
     }
     function scrollToTop() {
         mainEle.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
@@ -68,20 +41,19 @@
     function scrollToAnElement(id) {
         mainEle.scrollTo(
             {
-                top: document.getElementById(id).offsetTop + offset, //修正偏差
+                top: document.getElementById(id).offsetTop + offset,
                 behavior: "smooth"
             }
         )
         window.scrollTo({ left: 0, top: 0, behavior: 'smooth' })
     }
-    function lastNote() {
-        if (noteIndex == 0) {
-            alert("没有上一篇了!")
+    const lastNote = (function () {
+        if (noteIndex === 0) {
+            return () => alert("没有上一篇啦!")
+        } else {
+            return () => window.location.href = path + (noteIndex - 1) + ".html"
         }
-        else {
-            window.location.href = path + (noteIndex - 1) + ".html"
-        }
-    }
+    })()
     function setTheme(index) {
         document.documentElement.setAttribute("class", themes[index])
         themeEle.href = index === 1 ? (domian + "/css/atom-one-dark.min.css") : (domian + "/css/atom-one-light.min.css")
@@ -92,22 +64,72 @@
         setTheme(selectedTheme)
     }
     function processElements(selecter, func) {
-        const elements = document.querySelectorAll(selecter)
-        for (let i = 0; i < elements.length; i++) {
-            const element = elements[i];
-            func(element)
-        }
+        document.querySelectorAll(selecter).forEach(func)
     }
-    initMenu()
+    
+    /**
+    * @param {HTMLElement} subtitle 
+    * @returns {Array} 返回subtitle下的所有标题
+    */
+    function getSubtitlesFrom(subtitle) {
+        let result = []
+        const selfLevel = level(subtitle)
+        for (let next = subtitle.nextElementSibling; next; next = next.nextElementSibling) {
+            const nextLevel = level(next)
+            if (next.classList.contains("note_subtitle")) {
+                if (nextLevel === selfLevel) {
+                    // 遇到同级的, 返回
+                    return result
+                }
+                if (nextLevel === selfLevel + 1) {
+                    result.push(next)
+                }
+            }
+        }
+        return result
+    }
+    
+    /**
+     * @param {string} id 所指向的页面中的子标题的id
+     * @returns 一个.note_section元素
+     */
+    function createMenuElement(id) {
+        const refer = document.getElementById(id)
+        const result = document.createElement("details")
+        const inner = document.createElement("summary")
+        const sub = getSubtitlesFrom(refer)
+        const levelOfTitle = level(refer)
+        inner.innerText = refer.innerText
+        inner.classList.add("note_section")
+        result.appendChild(inner)
+        result.style.paddingLeft = levelOfTitle / 2 + "rem"
+        result.style.fontSize = 20 - 1.5 * levelOfTitle + "px"
+        inner.dataset.refer = id
+        inner.addEventListener("click", () => scrollToAnElement(refer.id))
+        if (sub.length === 0) {
+            inner.style.paddingLeft = "1em"
+            inner.classList.add("no_marker")
+        } else {
+            // inner.style.marginLeft = "-1em"
+            sub.forEach(element => result.appendChild(createMenuElement(element.id)))
+        }
+        return result
+    }
+    
     const processes = {
-        ".note_last": (element) => element.addEventListener("click", lastNote),
-        ".note_next": (element) => element.addEventListener("click", nextNote),
-        ".note_switch_theme": (element) => element.addEventListener("click", switchTheme),
-        ".note_btt": (element) => element.addEventListener("click", scrollToTop),
-        "code": (element) => element.addEventListener("click", () => navigator.clipboard.writeText(element.innerText)),
-        "i.note_icon": (element) => {
+        ".note_last": element => element.addEventListener("click", lastNote),
+        ".note_switch_theme": element => element.addEventListener("click", switchTheme),
+        ".note_btt": element => element.addEventListener("click", scrollToTop),
+        "code": element => element.addEventListener("click", () => navigator.clipboard.writeText(element.innerText)),
+        "i.note_icon": element => {
             element.innerHTML = "&nbsp;&nbsp;&nbsp;"
             element.style.backgroundImage = `url(${element.dataset["emojiurl"]})`
+        },
+        ".note_subtitle": element => {
+            element.id = element.innerText.replaceAll(" ", "")
+            element.addEventListener("click", function() {
+                navigator.clipboard.writeText(encodeURI(href + "#" + this.id))
+            })
         }
     }
     for (const key in processes) {
@@ -115,7 +137,14 @@
             processElements(key, processes[key])
         }
     }
-
+    function initMenu() {
+        const subtitles = document.querySelectorAll("h2.note_subtitle")
+        subtitles.forEach(element => {
+            console.log(element, element.id);
+            menuEle.appendChild(createMenuElement(element.id))
+        })
+    }
+    initMenu()
     mainEle.addEventListener("scroll", () => {
         const st = mainEle.scrollTop
         bar.style.opacity = +(st > offset)
