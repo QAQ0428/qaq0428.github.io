@@ -16,7 +16,7 @@
 }
 /* 不同主题的颜色 */
 :root.note_light {
-    --fg_color: #666;
+    --fg_color: #000;
     --bg_color: #fff;
 }
 
@@ -261,11 +261,7 @@ body .note_bar .note_btn:hover {
 
 .note_menu .note_section {
     height: 50px;
-    border-bottom: 1px solid var(--bg_color);
-    background-color: var(--fg_color);
-    color: var(--bg_color);
     line-height: 50px;
-    padding-left: 2em;
     transition: all .3s;
     text-overflow: ellipsis;
     overflow-x: hidden;
@@ -278,13 +274,9 @@ body .note_bar .note_btn:hover {
 .note_bar::-webkit-scrollbar {
     display: none;
 }
-
-.note_menu .note_section:hover {
-    background-color: var(--bg_color);
-    color: var(--fg_color);
-    padding-left: 4em;
+.no_marker {
+    list-style-type: none;
 }
-
 /* 屏幕小的就不要侧边栏了, 放下面 */
 @media screen and (max-width: 767px) {
 
@@ -296,7 +288,6 @@ body .note_bar .note_btn:hover {
     body .note_main .note_main_body .note_footer {
         display: flex;
     }
-
     .note_footer .note_btn {
         flex: 1;
     }
