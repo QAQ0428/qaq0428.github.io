@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+            color: #fff;
+            font-size: 15vw;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .big {
+            text-shadow: rgb(255 255 255 / .5) 10px 10px 20px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .big div {
+            float: left;
+            margin: .25em;
+        }
+        .move-up {
+            animation: move-up 1s;
+        }
+
+        .move-down {
+            animation: move-down 1s;
+        }
+
+        .small {
+            position: relative;
+            font-size: 5vw;
+            width: 100%;
+            text-align: center;
+        }
+        .line::before {
+            display: inline-block;
+            position: absolute;
+            bottom: -.2em;
+            left: 0;
+            content: '';
+            width: 0;
+            height: .1em;
+            background-color: rgb(255 255 255);
+            animation: width 1s ease forwards;
+        }
+        @keyframes move-up {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes move-down {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes typewriter-cursor {
+            from {
+                opacity: 0;
+            }
+        }
+        @keyframes width {
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="big" data-text="生日快乐"></div>
+    <div class="small"></div>
+    <script>
+        const typewriter = document.querySelector(".small")
+        const hb = document.querySelector(".big")
+        const text = hb.dataset.text
+        const usp = new URLSearchParams(window.location.search.substring(1))
+        const typewriterText = `恭喜${usp.get("uname")}又老了一岁! ^_^`
+
+        let i = 0
+        let timer = setInterval(function () {
+            const char = document.createElement("div")
+            char.innerText = text[i]
+            char.classList.add(i % 2 == 0 ? "move-up" : "move-down")
+            hb.appendChild(char)
+            i++
+            if (i >= text.length) {
+                clearInterval(timer)
+            }
+        }, 500)
+        setTimeout(function () {
+            let j = 0
+            const timer2 = setInterval(function () {
+                typewriter.innerText += typewriterText[j]
+                j++
+                if (j >= typewriterText.length) {
+                    clearInterval(timer2)
+                }
+            }, 100)
+        }, 2500)
+        setTimeout(function() {
+            typewriter.classList.add("line")
+        }, 2750 + 100*typewriterText.length)
+    </script>
+</body>
+
+</html>
