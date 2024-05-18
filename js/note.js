@@ -9,7 +9,7 @@
     let type = href.split("/")
     type = type[type.length - 2]
     const themes = ["note_light", "note_dark", "note_pink"]
-    let selectedTheme = +localStorage.getItem("selectedNoteTheme") || 2
+    let selectedTheme = +(localStorage.getItem("selectedNoteTheme") || 2)
     const mainEle = document.querySelector(".note_main")
     const menuEle = document.querySelector(".note_menu")
     const bar = document.querySelector(".note_bar")
