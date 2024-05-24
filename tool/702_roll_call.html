@@ -153,22 +153,23 @@
         let timer = 0;
         const genderToRange = {
             "random": [1, 41],
-            "boy": [1, 19],
+            "boy": [1, 18],
             "girl": [20, 41]
         };
         let range = genderToRange[gender];
-        function randInt(a, b) { // 返回区间 [a, b] 里的随机整数
-            return Math.floor(Math.random() * (b - a + 1) + a);
+        function randInt(a, b) { 
+            const r = Math.floor(Math.random() * (b - a + 1) + a);
+            return r === 19 ? Math.floor(Math.random() * (b - a + 1) + a) : r
         }
         let randStu = () => randInt(1, 41);
-        let randBoy = () => randInt(1, 19);
+        let randBoy = () => randInt(1, 18);
         let randGirl = () => randInt(20, 41);
-        function pause() { // 按钮按下以后的事件
+        function pause() { 
                 clearInterval(timer);
                 button.innerText = "启动! ";
                 button.onclick = next;
             }
-        function next() { // 抽取一位同学
+        function next() {
             results.innerHTML = "";
             for (let i = 0; i < howMany; i++) {
                 results.innerHTML += `<div class="res_item">${randInt(range[0], range[1])}号</div>`;
@@ -176,7 +177,7 @@
             if (showDirect) {
 
             }
-            else { // 通过按暂停来确定
+            else { 
                 timer = setInterval(
                     function () {
                         for (let i = 0; i < results.children.length; i++) {
@@ -234,7 +235,7 @@
     </main>
     <script>
         let button = e("next");
-        let results = e("results"); // 结果的父容器
+        let results = e("results");
     </script>
 </body>
 
