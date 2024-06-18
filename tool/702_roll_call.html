@@ -146,24 +146,37 @@
         }
     </style>
     <script>
+        
         let e = (id) => document.getElementById(id);
         let showDirect = true;
         let gender = "random";
         let howMany = 1;
         let timer = 0;
+        let personNum = 40;
         const genderToRange = {
             "random": [1, 41],
             "boy": [1, 18],
             "girl": [20, 41]
         };
         let range = genderToRange[gender];
-        function randInt(a, b) { 
-            const r = Math.floor(Math.random() * (b - a + 1) + a);
-            return r === 19 ? Math.floor(Math.random() * (b - a + 1) + a) : r
+        let called = []
+        function randInt(a, b) {
+            const r = Math.floor(Math.random() * (b - a + 1) + a)
+            return r === 19 || called.includes(r) ? randInt(a, b) : r
         }
-        let randStu = () => randInt(1, 41);
-        let randBoy = () => randInt(1, 18);
-        let randGirl = () => randInt(20, 41);
+        function call(a, b) { 
+            let result = randInt(a, b)
+            called.push(result)
+            if (called.length === personNum) {
+                called = []
+            }
+            console.clear()
+            console.log(called);
+            return result
+        }
+        let randStu = () => call(1, 41);
+        let randBoy = () => call(1, 18);
+        let randGirl = () => call(20, 41);
         function pause() { 
                 clearInterval(timer);
                 button.innerText = "启动! ";
@@ -172,19 +185,16 @@
         function next() {
             results.innerHTML = "";
             for (let i = 0; i < howMany; i++) {
-                results.innerHTML += `<div class="res_item">${randInt(range[0], range[1])}号</div>`;
+                results.innerHTML += `<div class="res_item">${call(range[0], range[1])}号</div>`;
             }
-            if (showDirect) {
-
-            }
-            else { 
+            if (!showDirect) { 
                 timer = setInterval(
                     function () {
                         for (let i = 0; i < results.children.length; i++) {
                             const element = results.children[i];
-                            element.innerText = randInt(range[0], range[1]) + "号";
+                            element.innerText = call(range[0], range[1]) + "号";
                         }
-                    }, 100
+                    }, 50
                 );
                 button.onclick = pause;
                 button.innerText = "就决定是你" + (howMany == 1 ? "" : "们") + "了! ";
@@ -203,20 +213,20 @@
                 <label for="showDirect">直接展示结果</label>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="isBoy" onchange="gender = 'boy';range = genderToRange[gender]">
+                <input type="radio" name="gender" id="isBoy" onchange="gender = 'boy';range = genderToRange[gender];personNum = 18">
                 <label for="isBoy">抽取男同学</label><br>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="isGirl" onchange="gender = 'girl';range = genderToRange[gender]">
+                <input type="radio" name="gender" id="isGirl" onchange="gender = 'girl';range = genderToRange[gender];personNum = 22">
                 <label for="isGirl">抽取女同学</label>
             </div>
             <div class="setting_item">
-                <input type="radio" name="gender" id="randomGender" checked onchange="gender = 'random';range = genderToRange[gender]">
+                <input type="radio" name="gender" id="randomGender" checked onchange="gender = 'random';range = genderToRange[gender];personNum = 40">
                 <label for="randomGender">抽取男或女同学</label>
             </div>
             <div class="setting_item">
                 <span>抽取</span>
-                <input type="number" placeholder="[1, +∞)" min="1" id="howMany" value="1"
+                <input type="number" placeholder="[1, +∞)" min="1" max="40" id="howMany" value="1"
                     onchange="howMany = +e('howMany').value;">
                 <span>次</span>
             </div>
