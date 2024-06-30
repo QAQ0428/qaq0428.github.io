@@ -136,7 +136,6 @@
     function initMenu() {
         const subtitles = document.querySelectorAll("h2.note_subtitle")
         subtitles.forEach(element => {
-            console.log(element, element.id);
             menuEle.appendChild(createMenuElement(element.id))
         })
     }
