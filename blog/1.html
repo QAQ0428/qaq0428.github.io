@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/katex.min.css">
+  <title>数学归纳法</title>
+</head>
+
+<body>
+  <nav class="note_menu">
+  </nav>
+  <main class="note_main">
+    <div class="note_main_head">
+      <h1 class="note_title1">数学归纳法</h1>
+      <span class="note_time">2024年6月30日 12点27分</span>
+      <span class="note_tags">数学</span>
+    </div>
+    <div class="note_main_body">
+      <div class="note_paragraph">
+        是证明有关自然数命题的方法.
+        <div class="note_info">
+          <div class="note_info_icon"></div>
+          <div class="note_info_content">这里指的是"第一数学归纳法", →参见 <a href="https://baike.baidu.com/item/第二数学归纳法/4641553"
+              class="note_link">"第二数学归纳法"</a></div>
+        </div>
+      </div>
+      <h2 class="note_subtitle">步骤</h2>
+      <div class="note_paragraph">
+        <ul class="note_list">
+          <li class="note_list_item">Step 1(归纳奠基): 证明当$n = 0$时, 命题成立</li>
+          <li class="note_list_item">Step 2(归纳假设): 假设当$n = k(k\in\N)$时, 命题成立</li>
+          <li class="note_list_item">Step 3(归纳递推): 证明当$n = k+1$时, 命题成立</li>
+        </ul>
+        至此, 即可证明原命题对于所有$n\in\N$都成立.
+      </div>
+      <h2 class="note_subtitle">实例</h2>
+      <div class="note_paragraph">注: 以下实例中$n, k$均为自然数</div>
+      <h3 class="note_subtitle">1</h3>
+      <div class="note_paragraph">
+        $3^n-1$是偶数
+      </div>
+      <div class="note_paragraph">
+        证明: $$
+        当n = 0时, 3^0 - 1 = 1 - 1 = 0是偶数\\
+        假设当n = k 时3^n-1是偶数\\
+        则当n=k+1时, \\
+        \begin{aligned}
+        3^{k + 1} - 1 &= 3\times3^k - 1\\
+        &= 3\times\left(3^k - 1\right) + 2\\
+         \end{aligned}\\
+         所以3^{k + 1}-1也是偶数\\
+         所以\forall n\in\N, 3^n-1是偶数\\
+          \space
+        $$
+      </div>
+      <h3 class="note_subtitle">2</h3>
+      <div class="note_paragraph">
+        $\sum\limits^n_{i=1}{i}=1+2+3+\cdots+n=\frac{n(n+1)}{2}$
+      </div>
+      <div class="note_paragraph">证明:
+        $$
+          当n=1时, 1 = \frac{1\times(1 + 1)}{2}成立.\\
+          假设当n=k时,命题成立.\\
+          则当n = k+1 时,\\ 
+          \begin{aligned}
+          \sum\limits^n_{i=1}{i}&=\frac{k(k+1)}{2}+(k+1)\\
+          &=\frac{k(k+1)+2(k+1)}{2}\\
+          &=\frac{k^2 + k + 2k + 2}{2}\\
+          &=\frac{k^2 + 3k + 2}{2}\\
+          &=\frac{(k+1)(k+2)}{2}
+          \end{aligned}\\
+          所以n=k+1时命题成立.\\
+          所以\forall n\in\N, \sum\limits^n_{i=1}{i}=\frac{n(n+1)}{2}\\
+          \space
+        $$
+      </div>
+      <h2 class="note_subtitle">原理</h2>
+      <div class="note_paragraph">
+        就像多米诺骨牌一样, 第一个骨牌倒下, 只要前一个倒下, 下一个就会倒下, 这样每一张骨牌都会倒下.在这里, 有了 Step 1 和 Step 3 的两个结论, 就可以得出$n=2,3,4\cdots$时命题成立
+      </div>
+      <div class="note_footer">
+        <div class="note_btn note_last">← 上一篇</div>
+        <div class="note_btn note_switch_theme">切换主题</div>
+        <div class="note_btn note_next">下一篇 →</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="note_bar">
+    <div class="note_btn note_next" title="下一篇">→</div>
+    <div class="note_btn note_last" title="上一篇">←</div>
+    <div class="note_btn note_btt" title="回到顶部">↑</div>
+    <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+  </div>
+  <script defer src="/js/blog.js">
+  </script>
+  <script defer src="/js/katex.min.js"></script>
+  <script defer src="/js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+</body>
+
+</html>
