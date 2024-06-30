@@ -306,3 +306,16 @@ body .note_bar .note_btn:hover {
 .katex-display {
     overflow: auto;
 }
+.note_tags {
+    margin-left: 10px;
+}
+.note_tags::before {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: '';
+    background-image: url(/images/tag.png);
+    background-size: contain;
+    vertical-align: middle;
+    margin-right: 5px;
+}
