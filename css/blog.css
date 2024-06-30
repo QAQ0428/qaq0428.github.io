@@ -318,4 +318,5 @@ body .note_bar .note_btn:hover {
     background-size: contain;
     vertical-align: middle;
     margin-right: 5px;
+    margin-bottom: 3px;
 }
