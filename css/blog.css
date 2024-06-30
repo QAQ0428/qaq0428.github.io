@@ -16,7 +16,7 @@
 }
 /* 不同主题的颜色 */
 :root.note_light {
-    --fg_color: #000;
+    --fg_color: #999;
     --bg_color: #fff;
 }
 
@@ -128,7 +128,6 @@ body .note_main .note_main_body .note_footer {
     text-align: center;
     margin: 20px auto;
     margin-left: -4em;
-    max-width: 80%;
 }
 
 .note_image_des {
@@ -137,6 +136,7 @@ body .note_main .note_main_body .note_footer {
 
 .note_image_content {
     background-size: contain;
+    max-width: 80%;
 }
 
 /* 表格 */

@@ -1,19 +1,15 @@
 
-!function () {
+// !function () {
     const href = window.location.href
-    const domian = window.location.origin
     const themeEle = document.querySelector("#theme") || {}
     const fileName = href.substring(href.lastIndexOf("/") + 1)
     const noteIndex = +fileName.split(".")[0]
-    const path = href.split(`${noteIndex}.html`)[0]
-    let type = href.split("/")
-    type = type[type.length - 2]
     const themes = ["note_light", "note_dark", "note_pink"]
     let selectedTheme = +(localStorage.getItem("selectedNoteTheme") || 2)
     const mainEle = document.querySelector(".note_main")
     const menuEle = document.querySelector(".note_menu")
     const bar = document.querySelector(".note_bar")
-    const nextUrl = path + (noteIndex + 1) + ".html";
+    const nextUrl = (noteIndex + 1) + ".html";
     const xhr = new XMLHttpRequest()
     setTheme(selectedTheme)
     xhr.onreadystatechange = () => {
@@ -51,12 +47,12 @@
         if (noteIndex === 0) {
             return () => alert("没有上一篇啦!")
         } else {
-            return () => window.location.href = path + (noteIndex - 1) + ".html"
+            return () => window.location.href = (noteIndex - 1) + ".html"
         }
     })()
     function setTheme(index) {
         document.documentElement.setAttribute("class", themes[index])
-        themeEle.href = index === 1 ? (domian + "/css/atom-one-dark.min.css") : (domian + "/css/atom-one-light.min.css")
+        themeEle.href = index === 1 ? "/css/atom-one-dark.min.css" :  "/css/atom-one-light.min.css"
     }
     function switchTheme() {
         selectedTheme = selectedTheme === 0 ? (themes.length - 1) : selectedTheme - 1
@@ -150,4 +146,4 @@
         bar.style.opacity = +(st > offset)
     })
 
-}()
+// }()
