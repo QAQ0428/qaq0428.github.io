@@ -106,7 +106,6 @@
             inner.style.paddingLeft = "1em"
             inner.classList.add("no_marker")
         } else {
-            // inner.style.marginLeft = "-1em"
             sub.forEach(element => result.appendChild(createMenuElement(element.id)))
         }
         return result
