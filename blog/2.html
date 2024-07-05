@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/atom-one-light.min.css" id="theme">
+    <link rel="stylesheet" href="/css/katex.min.css">
+    <title>x^x的导数</title>
+</head>
+
+<body>
+    <nav class="note_menu">
+    </nav>
+    <main class="note_main">
+        <div class="note_main_head">
+            <h1 class="note_title1">x^x的导数</h1>
+            <span class="note_time">2024年7月5日 10点04分</span>
+            <span class="note_tags">数学</span>
+        </div>
+        <div class="note_main_body">
+            <h2 class="note_subtitle">思路</h2>
+            <div class="note_paragraph">直接导不方便, 这里利用<a href="https://shuxuele.com/calculus/implicit-differentiation.html" class="note_link" target="_blank">隐微分法</a>.</div>
+            <h2 class="note_subtitle">过程</h2>
+            <div class="note_paragraph">
+                $$
+                    \begin{aligned}
+                        y &= x^x\\
+                        \ln{y} &= x\ln{x}\\
+                        \frac{\mathrm{d}}{\mathrm{d}x}\ln{y}&=\frac{\mathrm{d}}{\mathrm{d}x}x\ln{x}\\
+                        \frac{1}{y}\cdot\frac{\mathrm{d}y}{\mathrm{d}x}&=1\ln{x}+x\cdot\frac{1}{x}\\
+                        \frac{\mathrm{d}y}{\mathrm{d}x}&=\left(\ln{x}+1\right)y\\
+                        \frac{\mathrm{d}y}{\mathrm{d}x}&=x^x\left(\ln{x}+1\right)\\
+                        \space
+                    \end{aligned}
+                $$
+            </div>
+            <div class="note_footer">
+                <div class="note_btn note_last">← 上一篇</div>
+                <div class="note_btn note_switch_theme">切换主题</div>
+                <div class="note_btn note_next">下一篇 →</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="note_bar">
+        <div class="note_btn note_next" title="下一篇">→</div>
+        <div class="note_btn note_last" title="上一篇">←</div>
+        <div class="note_btn note_btt" title="回到顶部">↑</div>
+        <div class="note_btn note_switch_theme" title="切换主题">🔃</div>
+    </div>
+    <script defer src="/js/blog.js">
+    </script>
+    <script defer src="/js/katex.min.js"></script>
+    <script defer src="/js/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [
+  {left: '$$', right: '$$', display: true},
+  {left: '$', right: '$', display: false}
+]})"></script>
+    <script src="/js/highlight.min.js" onload="hljs.highlightAll()"></script>
+</body>
+
+</html>
