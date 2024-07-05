@@ -311,8 +311,8 @@ body .note_bar .note_btn:hover {
 }
 .note_tags::before {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 1em;
+    height: 1em;
     content: '';
     background-image: url(/images/tag.png);
     background-size: contain;
