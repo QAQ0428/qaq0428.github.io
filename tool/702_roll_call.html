@@ -146,60 +146,102 @@
         }
     </style>
     <script>
-        
-        let e = (id) => document.getElementById(id);
-        let showDirect = true;
-        let gender = "random";
-        let howMany = 1;
-        let timer = 0;
-        let personNum = 40;
-        const genderToRange = {
-            "random": [1, 41],
-            "boy": [1, 18],
-            "girl": [20, 41]
-        };
-        let range = genderToRange[gender];
-        let called = []
-        function randInt(a, b) {
-            const r = Math.floor(Math.random() * (b - a + 1) + a)
-            return r === 19 || called.includes(r) ? randInt(a, b) : r
-        }
-        function call(a, b) { 
-            let result = randInt(a, b)
-            called.push(result)
-            if (called.length === personNum) {
-                called = []
-            }
-            console.clear()
-            console.log(called);
-            return result
-        }
-        let randStu = () => call(1, 41);
-        let randBoy = () => call(1, 18);
-        let randGirl = () => call(20, 41);
-        function pause() { 
-                clearInterval(timer);
-                button.innerText = "启动! ";
-                button.onclick = next;
-            }
-        function next() {
-            results.innerHTML = "";
-            for (let i = 0; i < howMany; i++) {
-                results.innerHTML += `<div class="res_item">${call(range[0], range[1])}号</div>`;
-            }
-            if (!showDirect) { 
-                timer = setInterval(
-                    function () {
-                        for (let i = 0; i < results.children.length; i++) {
-                            const element = results.children[i];
-                            element.innerText = call(range[0], range[1]) + "号";
-                        }
-                    }, 50
-                );
-                button.onclick = pause;
-                button.innerText = "就决定是你" + (howMany == 1 ? "" : "们") + "了! ";
-            }
-        }
+        /*                                                                                   
+                                                                                                    
+                                              .jGEEGj,                                              
+                                        E.                 E                                        
+                                    G                          E                                    
+                                 j        .tttttttttttttt.        G                                 
+                               E      titiiiiiiiiiiiiiiiiiitti      L                               
+                             L     ttiiiiiiiiiiiiiiiiiiiiiiiiiitt     t                             
+                           E     ttiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii     E      j,                   
+                         .     tiiiiiiiiiiiiii,,,,,,,,,iiiiiiiiiiiiii         G  ,                  
+                        t    tiiiiiiiiii,,,,,,,,....,,,,,,,,iiiiiiiiiit           G                 
+                           ttiiiiiiii,,,,.                .,,,,iiiiiiiiti                           
+                     G   .tiiiiiii,,,,.                     ..,,,iiiiiiiii     EE                   
+                    E   tiiiiiii,,,,                           .,,,,iiiiiiii  EEEE  t               
+                   .   tiiiiiii,,,...                           ..,,,,iiiiiii EEEE                  
+                      iiiiiii,,,...  ..  ............ .........  ...,,,iiiiiiEEEEEE  G              
+                     tiiiiii,,....... .  ....  .....  ..... ..  ......,,,iiiiEGGGGE                 
+                .  .tiiiii,,,..........................................,,,iiGGGGGGGG  G             
+               E   tiiiii,,,............................................,,,tGGGj,GGG                
+              L   iiiiii,,................................................,GGGL. LGGG  j            
+                 iiiiii,,.................................................GGGLj  iLGG               
+                tiiiii,,..................................................GGLL,  .LLGG              
+            L  iiiiii,,,.................................................LGLLj....iLLG              
+           .   iiiii,,,..................................................GLLj,.....jLGG             
+              tiiii,,,..................................................iGLjj......iLLG  L          
+          G  tiiii,,,...................................................GLjj,.,,,,..jLL             
+             iiiii,,,...................................................Ljjt.,,,,,,.ijLG  G         
+         G  iiiii,,,...................................................GLjj,,,,,,,,,,jjL            
+            iiiii,,,...................................................Ljjt,,,,,,,,,,tjLi           
+        E  tiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Ljti,,,,,,,,,,ijLG  ,        
+           iiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,LLjti,,iiiiiii,itjL           
+       ,  tiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Gjttt,,iiiiiii,itjLi  i       
+          tiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Ljttt,,iiiiii,,ttjLL  .       
+         tiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Ljtttt,,,ii,,,itttjGt         
+      G  tiiii,,,,,,,,,,,,,,,,,,,,,.EEEEE,,,,,,,,,,,,,,,,,,KEEEE.,,,,,Gjtttti,,,,,,ittttjGt         
+         iiii,,,,,,,,,,,,,,,,,,,,,.GGGGGGG,,,,,,,,,,,,,,,,EGGGGGG.,,,,GjttttttiiiittttttjGt  G      
+        iiiii,,,,,,,,,,,,,,,,,,,,,GGGLLLGGE,,,,,,,,,,,,,,EGGLLLGGG,,,,GjttttttttttttttttjGii        
+        tiiii,,,,,,,,,,,,,,,,,,,,EGGLLLLLGGi,,,,,,,,,,,,.GGLLLLLGGG,,,GLjttttttttttttttjLGit        
+     G  iiii,,,,,,,,,,,,,,,,,,,,,GGLLLLLLLGG,,,,,,,,,,,,GGLLLLLLLGG,,,,LjttttttttttttttjLiit  .     
+     i  tiii,,,,,,,,,,,,,,,,,,,,.GGLLLLLLLGG.,,,,,,,,,,,GGLLLLLLLLGE,,,GLjtttttttttttttjLiit  E     
+        iiii,,,,,,,,,,,,,,,,,,,,GGLLLLLLLLLGG,,,,,,,,,,iGLLLLLLLLLGG,,,,LjjtttttttttttjLLiii        
+       tiiii,,,,,,,,,,,,,,,,,,,,GGLLLLLLLLLGG,,,,,,,,,,GGLLLLLLLLLGG,,,,LLjjttttttttjjLG,iiit       
+       tiiii,,,,,,,,,,,,,,,,,,,,GGLLLGGGLLLGG,,,,,,,,,,GGLLLGGGLLLGG.,,,,tLLjjjtttjjLLE,,iiit       
+       tiii,,,,,,,,,,,,,,,,,,,,.GGGGG,,,EGGGG,,,,,,,,,,GGGGE,,,jGLGG.,,,,,,GLLLLLLLLG,,,,iiit       
+       tiii,,,,,,,,,,,,,,,,,,,,.GGG.,,,,,.GGG,,,,,,,,,,GGGj,,,,,.GGGi,,,,,,,,,GGGGt,,,,,,iiit               看啥呢牢弟, js在第252行, 已经混淆过了
+    ,  tiii,,,,,,,,,,,,,,,,,,,,,GG.,,,,,,,EGG,,,,,,,,,,GGG,,,,,,,.GGG,,,,,,,,,,,,,,,,,,,,iiit       
+    G  tiii,,,,,,,,,,,,,,,,,,,,iGG,,,,,,,,,GE,,,,,,,,,,EE.,,,,,,,,GGE,,,,,,,,,,,,,,,,,,,,iiit  i    
+    G  tiii,,,,,,,,,,,,,,,,,,,,.E.,,,,,,,,,,E,,,,,,,,,,EE,,,,,,,,,.E.,,,,,,,,,,,,,,,,,,,,iiit  j    
+    G  tiii,,,,,,,,,,,,,,,,,,,,,.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.,,,,,,,,,,,,,,,,,,,,,iiit  j    
+    G  tiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiit  t    
+    ,  tiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiit  .    
+       tiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiit       
+       tiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiit       
+       tiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiit       
+       tiiii,,,,,,,,,,EEEE.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,KEEEt,,,,,,,,,,iiiit       
+        iiii,,,,,,,,,,EEEEEEEKi,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.EEEEEEEEE,,,,,,,,,,iiii        
+     i  tiii,,,,,,,,,,EEEEEEEEEEEEEKi.,,,,,,,,,,,,,,,,,,,,,,,.jKEEEEEEEEEEEEEE,,,,,,,,,,iiii  i     
+     G  tiii,,,,,,,,,,EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE,,,,,,,,,,iiit  L     
+        tiiii,,,,,,,,,EEE,,,,tKEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEG,,.EEE,,,,,,,,,iiiit        
+        iiiii,,,,,,,,,EEK,,,,,,,... jKEEEEEEEEEEEEEEEEEEEEEEEEEEEE,..,,,,,,EEi,,,,,,,,,iiiit        
+         iiii,,,,,,,,,GGK,,,,,,.......           ,itti.       .......,,,,,WEG,,,,,,,,,,iiii         
+      G  tiiii,,,,,,,,,GEK,,,,,.......                        .......,,,,.KGG,,,,,,,,,iiiit  G      
+         tiiii,,,,,,,,,GGK.,,,,.......                        .......,,,.KEGE,,,,,,,,,iiiit         
+          tiii,,,,,,,,,GGEK#,,,.......                        .......,,WKEGG,,,,,,,,,,iiit          
+       ,  tiiii,,,,,,,,,LLGEKWi.......                        .......#KEGLLG,,,,,,,,,iiiit  ,       
+           iiii,,,,,,,,,LLLLGEEKKG....                        ... #KKEGLLLL,,,,,,,,,,iiii           
+        G  tiiii,,,,,,,,,LLLLLLGEEKKKWi                     .WWKKKEGGLLLLLL,,,,,,,,,iiiit  G        
+           .iiiii,,,,,,,,,LLLLLLLLLGGEEKKKKKKKKWWWKKKKKKKKKKEEEGGLLLLLLLLL,,,,,,,,,,iiii            
+         G  tiiii,,,,,,,,,jjLLjjLLjjLLLLLGGGGGGGGGGGGGGGGLLLLLLLjjLLLLLjj,,,,,,,,,,iiiit  G         
+             tiiii,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjL,,,,,,,,,iiiii             
+          G  tiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,iiiit  G          
+              tiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,iiiii              
+           .   iiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,iiiii               
+            L  tiiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,iiiiit  G            
+                iiiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,iiiiit                
+                 iiiiii,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,,,iiiii                 
+              L   iiiiii,,,,,,,,,,,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,,iiiiit   L              
+               E   tiiiii,,,,,,,,,,,ijjjjjjjjjjjjjjjjjjjjjjjjjj,,,,,,,,,,,,iiiiit   E               
+                ,  .tiiiii,,,,,,,,,,,,ijjjjjjjjjjjjjjjjjjjjjt.,,,,,,,,,,,,iiiiit.  i                
+                     iiiiii,,,,,,,,,,,,,,jjjjjjjjjjjjjjjjjt,,,,,,,,,,,,,,iiiiit                     
+                      iiiiiii,,,,,,,,,,,,,,,,jjjjjjjjjt.,,,,,,,,,,,,,,,iiiiiii                      
+                   .   iiiiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiiiiit   i                   
+                    G   tiiiiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiiiiiit   E                    
+                     G   .iiiiiiii,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,iiiiiiit    G                     
+                           iiiiiiiiii,,,,,,,,,,,,,,,,,,,,,,,,,,iiiiiiiiit                           
+                        t    tiiiiiiiii,,,,,,,,,,,,,,,,,,,,,iiiiiiiiiit    j                        
+                         .     tiiiiiiiiiiii,,,,,,,,,,,iiiiiiiiiiiiit                               
+                           E     ttiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit     E                           
+                             L     tttiiiiiiiiiiiiiiiiiiiiiiiiiit     G                             
+                               E      tttiiiiiiiiiiiiiiiiitttt      E                               
+                                 t        .tttti. tttt,.          .                                 
+                                    G                          t                                    
+                                        E.                .E                                        
+                                               ..iEtj.                                
+        */
+        const _0x5ec558=_0x3bae;(function(_0x13f3da,_0x26c478){const _0x75f85a=_0x3bae,_0x2da53b=_0x13f3da();while(!![]){try{const _0x14dd70=-parseInt(_0x75f85a(0x18e))/(-0xb*-0x212+0x5*-0x5e9+-0x1b2*-0x4)*(-parseInt(_0x75f85a(0x19d))/(-0x3ad*-0x1+0x1a22+0x9ef*-0x3))+parseInt(_0x75f85a(0x194))/(0x951+-0x22b0+-0x876*-0x3)+-parseInt(_0x75f85a(0x1a8))/(-0x3*0x142+0xed2+0x4*-0x2c2)+parseInt(_0x75f85a(0x17f))/(0xa63*0x1+-0x25b9+-0x2f*-0x95)*(-parseInt(_0x75f85a(0x182))/(0x1a*0x10+-0x1*0x184d+-0x95*-0x27))+parseInt(_0x75f85a(0x178))/(0x305*0x2+0xf2e+0x1*-0x1531)*(-parseInt(_0x75f85a(0x19e))/(-0x8ca+-0x215b+-0x3d*-0xb1))+parseInt(_0x75f85a(0x18c))/(-0x17b*-0x11+-0x24b3*-0x1+-0x3dd5)*(-parseInt(_0x75f85a(0x17a))/(0x66*-0x2a+-0x746+-0x1b*-0xe4))+parseInt(_0x75f85a(0x198))/(-0xf81+0x266*-0x7+0x102b*0x2);if(_0x14dd70===_0x26c478)break;else _0x2da53b['push'](_0x2da53b['shift']());}catch(_0x59c377){_0x2da53b['push'](_0x2da53b['shift']());}}}(_0x36f2,-0x16c35a+0xf67*-0x8f+-0x2e8b24*-0x1));let e=_0x7abdd1=>document[_0x5ec558(0x196)+_0x5ec558(0x18a)](_0x7abdd1),showDirect=!![],gender=_0x5ec558(0x199),howMany=-0x261a+-0x1008+-0x3623*-0x1,timer=-0x25a2+-0x277*0xb+-0x3*-0x1595,personNum=-0xde8+0x5be+0x852;const genderToRange={'random':[0x1248+0x1*0x982+-0x1bc9,0xe30+0xa25+0xe*-0x1ba],'boy':[0xb*-0x182+-0x1*-0x844+0x853*0x1,-0x42e*0x1+-0x5a7*0x1+0x9e7],'girl':[-0x668+-0x187e+0x1efa,0x9e7+0x3*0x2d7+-0x113*0x11]};let range=genderToRange[gender],called=[];function _0x3bae(_0x28865a,_0x5c8bac){const _0x4cf100=_0x36f2();return _0x3bae=function(_0x528a5b,_0x488e01){_0x528a5b=_0x528a5b-(0x7*0x587+-0x2077+0x4c2*-0x1);let _0x56e91b=_0x4cf100[_0x528a5b];return _0x56e91b;},_0x3bae(_0x28865a,_0x5c8bac);}function randInt(_0x5488d6,_0x48b8c1){const _0x4f0e6f=_0x5ec558,_0x385390={'cZOgA':function(_0x559802,_0x3c6f6a){return _0x559802+_0x3c6f6a;},'RGGKp':function(_0x27f567,_0x9204d0){return _0x27f567*_0x9204d0;},'VRGHO':function(_0x562596,_0x3ecbaf){return _0x562596-_0x3ecbaf;},'OoJBU':function(_0xdc185b,_0x253453){return _0xdc185b===_0x253453;},'RReZt':function(_0x287632,_0x291140,_0x58c216){return _0x287632(_0x291140,_0x58c216);}},_0x7f0685=Math[_0x4f0e6f(0x17d)](_0x385390[_0x4f0e6f(0x197)](_0x385390[_0x4f0e6f(0x185)](Math[_0x4f0e6f(0x199)](),_0x385390[_0x4f0e6f(0x197)](_0x385390[_0x4f0e6f(0x19a)](_0x48b8c1,_0x5488d6),-0x3be*-0x2+-0x7a1+-0x1*-0x26)),_0x5488d6));return _0x385390[_0x4f0e6f(0x19c)](_0x7f0685,-0x22*0x7d+-0x5e*0x5b+-0x3217*-0x1)||called[_0x4f0e6f(0x1a3)](_0x7f0685)?_0x385390[_0x4f0e6f(0x188)](randInt,_0x5488d6,_0x48b8c1):_0x7f0685;}function call(_0x3f93ce,_0x178b80){const _0x23f157=_0x5ec558,_0x41d152={'JMoFd':function(_0x4e445e,_0x540635,_0x30f1b9){return _0x4e445e(_0x540635,_0x30f1b9);},'cYpIY':function(_0x10feea,_0x855b1a){return _0x10feea===_0x855b1a;}};let _0x518f3d=_0x41d152[_0x23f157(0x1a0)](randInt,_0x3f93ce,_0x178b80);return called[_0x23f157(0x19b)](_0x518f3d),_0x41d152[_0x23f157(0x191)](called[_0x23f157(0x187)],personNum)&&(called=[]),console[_0x23f157(0x19f)](),console[_0x23f157(0x17b)](called),_0x518f3d;}function _0x36f2(){const _0x37f7c9=['9156nXKlBG','号</div>','50210hPbzVK','log','children','floor','就决定是你','605plWBgp','sHaJh','BYGQv','4344KOgWkC','SlwaN','=\x22res_item','RGGKp','rHweD','length','RReZt','YfVHu','ById','启动!\x20','2961YjduZu','LDJsd','1GRiraE','innerHTML','onclick','cYpIY','innerText','YakMn','4151805kweyyU','<div\x20class','getElement','cZOgA','33700733MTlDEg','random','VRGHO','push','OoJBU','1930756wfdarX','8784VYXhPb','clear','JMoFd','QwvzQ','Ihvil','includes','FTfDw','QbxHE','了!\x20','gUiQj','4970776oMUAma'];_0x36f2=function(){return _0x37f7c9;};return _0x36f2();}let randStu=()=>call(0x5ca*-0x4+-0x1*0x30d+0x131*0x16,-0x188c*0x1+0x112d+0x788),randBoy=()=>call(-0xb*-0x224+0x1*-0x2322+0xb97,-0x1f82*-0x1+0x180d+-0x377d),randGirl=()=>call(-0xd55+-0x1345*-0x2+-0x1921,-0x23d4+0x24cf+-0xd2);function pause(){const _0x2814a7=_0x5ec558,_0x36d6dc={'YakMn':function(_0x246454,_0x388044){return _0x246454(_0x388044);},'QwvzQ':_0x2814a7(0x18b)};_0x36d6dc[_0x2814a7(0x193)](clearInterval,timer),button[_0x2814a7(0x192)]=_0x36d6dc[_0x2814a7(0x1a1)],button[_0x2814a7(0x190)]=next;}function next(){const _0x26a4ab=_0x5ec558,_0x3d2737={'gUiQj':function(_0x15db90,_0x1613ff){return _0x15db90<_0x1613ff;},'QbxHE':function(_0x203c14,_0x15c404){return _0x203c14+_0x15c404;},'sHaJh':function(_0x52a13c,_0x11fc77,_0x2c74c7){return _0x52a13c(_0x11fc77,_0x2c74c7);},'Ihvil':function(_0x520784,_0x40070a,_0x49b554){return _0x520784(_0x40070a,_0x49b554);},'SlwaN':function(_0x33cd68,_0x5d8756,_0x57e531){return _0x33cd68(_0x5d8756,_0x57e531);},'LDJsd':function(_0x230d32,_0x16a65f){return _0x230d32+_0x16a65f;},'rHweD':function(_0x1b6712,_0x5bcb55){return _0x1b6712+_0x5bcb55;},'YfVHu':_0x26a4ab(0x17e),'FTfDw':function(_0xba59c1,_0x3fd472){return _0xba59c1==_0x3fd472;},'BYGQv':_0x26a4ab(0x1a6)};results[_0x26a4ab(0x18f)]='';for(let _0x15bc3d=-0x8d6+0x261d+-0x1d47;_0x3d2737[_0x26a4ab(0x1a7)](_0x15bc3d,howMany);_0x15bc3d++){results[_0x26a4ab(0x18f)]+=_0x26a4ab(0x195)+_0x26a4ab(0x184)+'\x22>'+_0x3d2737[_0x26a4ab(0x1a2)](call,range[0x2c5+-0xe*-0x76+-0x939],range[0x936+0x31*-0x21+0x4a*-0xa])+_0x26a4ab(0x179);}!showDirect&&(timer=_0x3d2737[_0x26a4ab(0x183)](setInterval,function(){const _0x1cb81a=_0x26a4ab;for(let _0x1e48ac=0x1504+-0x1b35+0x1*0x631;_0x3d2737[_0x1cb81a(0x1a7)](_0x1e48ac,results[_0x1cb81a(0x17c)][_0x1cb81a(0x187)]);_0x1e48ac++){const _0x24aa5b=results[_0x1cb81a(0x17c)][_0x1e48ac];_0x24aa5b[_0x1cb81a(0x192)]=_0x3d2737[_0x1cb81a(0x1a5)](_0x3d2737[_0x1cb81a(0x180)](call,range[-0x1add+-0x1*0x23d+-0x1d1a*-0x1],range[0x593*0x2+0x11d+-0xc42]),'号');}},-0x5*-0x689+-0x1*-0x3e1+0x917*-0x4),button[_0x26a4ab(0x190)]=pause,button[_0x26a4ab(0x192)]=_0x3d2737[_0x26a4ab(0x18d)](_0x3d2737[_0x26a4ab(0x186)](_0x3d2737[_0x26a4ab(0x189)],_0x3d2737[_0x26a4ab(0x1a4)](howMany,-0x1c7+0x5aa+-0x3e2)?'':'们'),_0x3d2737[_0x26a4ab(0x181)]));}
     </script>
 </head>
 
